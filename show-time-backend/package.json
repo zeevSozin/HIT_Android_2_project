@@ -1,11 +1,21 @@
 {
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "config": "^3.3.12",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "express-jwt": "^8.4.1",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.5.1",
+    "morgan": "^1.10.0",
+    "rotating-file-stream": "^3.2.3",
     "swagger-autogen": "^2.23.7",
-    "swagger-express": "^1.0.5"
+    "swagger-express": "^1.0.5",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "winston": "^3.13.1",
+    "winston-daily-rotate-file": "^5.0.0"
   },
   "name": "show-time-backend",
   "version": "1.0.0",
@@ -15,7 +25,8 @@
     "coffee-script": "^1.12.7"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "swagger": "node ./swagger.js"
   },
   "author": "",
   "license": "ISC"
