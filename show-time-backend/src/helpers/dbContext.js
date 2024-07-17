@@ -36,6 +36,7 @@ class DbContext {
         console.log(predicate);
         result = await schema.find(predicate);
       }
+      logger.debug("Query result is : %j", result);
       return result;
     } catch (error) {
       logger.error(error.message);

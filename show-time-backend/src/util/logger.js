@@ -1,8 +1,11 @@
 const config = require("config");
+const env = require("dotenv");
 const winston = require("winston");
 const { format } = require("winston");
 require("winston-daily-rotate-file");
 const { combine, timestamp, json, colorize } = format;
+
+env.config();
 
 const LOG_LEVEL = config.get("logger.level");
 
