@@ -1,0 +1,19 @@
+.form {
+  background-color: aqua;
+  padding: 1.5em;
+  border-radius: 7px;
+  gap: 2em;
+}
+.row {
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: start;
+  padding-bottom: 2%;
+  gap: 2em;
+}
+.submit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.8em;
+}

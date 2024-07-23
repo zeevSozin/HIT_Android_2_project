@@ -9,9 +9,10 @@ const logger = require("./../util/logger.js");
 // const { saveOne } = require("./../helpers/dbContext.js");
 const DbContext = require("./../helpers/dbContext.js");
 const User = require("./../model/user");
+const { error } = require("winston");
 const router = express.Router();
 
-dotenv.config();
+// dotenv.config();
 
 const dbContext = new DbContext();
 
@@ -22,23 +23,35 @@ const dbContext = new DbContext();
  *    User:
  *      type: object
  *      required:
- *        - userName
+ *        - email
  *        - password
  *      properties:
- *        userName:
- *          type: string
- *        password:
- *          type: string
  *        firstName:
  *          type: string
  *        lastName:
  *          type: string
+ *        email:
+ *          type: string
+ *        password:
+ *          type: string
+ *    loginUser:
+ *      type: object
+ *      required:
+ *        - email
+ *        - password
+ *      properties:
+ *        email:
+ *          type: string
+ *        password:
+ *          type: string
+ *
  */
 
 /**
  * @swagger
  * /authentication/register:
  *  post:
+ *    tags: [Authentication]
  *    requestBody:
  *      required: true
  *      content:
@@ -46,14 +59,28 @@ const dbContext = new DbContext();
  *          schema:
  *            $ref: '#/components/schemas/User'
  *    responses:
- *      200:
+ *      201:
  *        content:
  *          application/json:
  *            schema:
  *              type: object
  *              items:
- *              $ref: '#/components/schemas/User'
+ *              properties:
+ *                token:
+ *                  type: string
+ *                  exapmle: xyz...xzy
  *      406:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              items:
+ *              properties:
+ *                error:
+ *                  type: string
+ *                  exapmle: UserName already taken
+ *
+ *      500:
  *        content:
  *          application/json:
  *            schema:
@@ -62,27 +89,32 @@ const dbContext = new DbContext();
  *              properties:
  *                message:
  *                  type: string
- *
-
- *
- *
- *
- *
+ *                  exapmle: Internal server error
  *
  */
 
 router.post("/register", encrypt, async (req, res) => {
   try {
     const result = await dbContext.select(User, {
-      userName: req.body.userName,
+      email: req.body.email,
     });
     if (!result.length) {
-      await dbContext.saveOne(User, req.body);
-      res.status(201).send("OK");
-    } else res.status(406).json({ message: "UserName already taken" });
+      await dbContext.saveOne(User, { ...req.body, role: "user" });
+      const user = req.body;
+      const payload = {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        userName: user.userName,
+        role: "user",
+      };
+      token = generateJWT(payload);
+      res.status(201).json({ token: token });
+    } else {
+      res.status(406).json({ error: "UserName already taken" });
+    }
   } catch (error) {
     logger.error(error.message);
-    res.status(500).send("Internal server error");
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -90,12 +122,13 @@ router.post("/register", encrypt, async (req, res) => {
  * @swagger
  * /authentication/validate:
  *  post:
+ *    tags: [Authentication]
  *    requestBody:
  *      required: true
  *      content:
  *        application/json:
  *          schema:
- *            $ref: '#/components/schemas/User'
+ *            $ref: '#/components/schemas/loginUser'
  *    responses:
  *      200:
  *        content:
@@ -103,7 +136,10 @@ router.post("/register", encrypt, async (req, res) => {
  *            schema:
  *              type: object
  *              items:
- *                $ref: '#/components/schemas/User'
+ *              properties:
+ *                token:
+ *                  type: string
+ *                  exapmle: xyz...xzy
  *
  *
  *
@@ -112,20 +148,32 @@ router.post("/register", encrypt, async (req, res) => {
 router.post("/validate", async (req, res) => {
   try {
     console.log("request body:", req.body);
-    result = await dbContext.select(User, { userName: req.body.userName });
+    result = await dbContext.select(User, { email: req.body.email });
     const [user] = result;
-    console.log(user);
-    console.log(req.body.password);
-    compRes = await compareHash(req.body.password, user.password);
-    console.log(compRes);
-    if (!compRes) {
-      ResizeObserverSize.status(401).json({ error: "Unauthorized" });
+    if (!user) {
+      res.status(409).json({ error: "Wrong Username" });
+    } else {
+      console.log(user);
+      console.log(req.body.password);
+      compRes = await compareHash(req.body.password, user.password);
+      console.log(compRes);
+      if (!compRes) {
+        res.status(401).json({ error: "Unauthorized" });
+      }
+      const payload = {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        userName: user.userName,
+        role: user.role,
+      };
+      token = generateJWT(payload);
+
+      token = generateJWT(payload);
+      res.status(200).json({ token: token });
     }
-    token = generateJWT(user.userName);
-    res.status(200).send(token);
   } catch (error) {
     logger.error(error.message + error.stack);
-    res.status(500).send("Internal server error");
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 

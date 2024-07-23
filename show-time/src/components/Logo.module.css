@@ -1,0 +1,6 @@
+.logo {
+  height: 6rem;
+}
+.logo:hover {
+  opacity: 0.66;
+}

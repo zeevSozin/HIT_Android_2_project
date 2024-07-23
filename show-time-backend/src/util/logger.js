@@ -36,7 +36,7 @@ const fileTransport = new winston.transports.DailyRotateFile({
 // Create a Winston logger
 const logger = winston.createLogger({
   level: LOG_LEVEL,
-  format: combine(timestamp(), format.splat(), format.simple()),
+  format: combine(timestamp(), format.splat(), format.simple(), json()),
   transports: [
     new winston.transports.Console({
       format: consoleLogFormat,

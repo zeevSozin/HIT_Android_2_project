@@ -1,15 +1,19 @@
 const config = require("config");
-const env = require("dotenv");
+const dotenv = require("dotenv");
 const cors = require("cors");
 const express = require("express");
 const swaggerUi = require("swagger-ui-express");
 const swaggerJsDoc = require("swagger-jsdoc");
 const authenticationRouter = require("./routes/authentication");
+const moviesProviderRouter = require("./routes/moviesProvider");
+const inventoryRouter = require("./routes/inventory");
 const morgan = require("morgan");
 const fs = require("fs");
 const path = require("path");
 const rfs = require("rotating-file-stream");
 const logger = require("./util/logger");
+
+dotenv.config();
 
 // Constants
 const HOST = config.get("server.host");
@@ -43,6 +47,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
 app.use(cors());
 app.use(express.json());
+app.logger = logger;
 
 // logger configuration
 // const accessLogStream = rfs.createStream("access.log", {
@@ -75,6 +80,8 @@ app.use(
 );
 
 app.use("/authentication", authenticationRouter);
+app.use("/moviesprovider", moviesProviderRouter);
+app.use("/inventory", inventoryRouter);
 
 app.get("/", async (req, res) => {
   res.send(`Show time backedn is running`);

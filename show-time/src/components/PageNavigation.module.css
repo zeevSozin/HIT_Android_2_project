@@ -1,0 +1,32 @@
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav li {
+  list-style: none;
+}
+
+.nav ul {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.nav a:link,
+.nav a:visited {
+  color: #000;
+  text-transform: uppercase;
+  background-color: rgb(177, 222, 240);
+  padding: 0.8rem 2rem;
+  border-radius: 7px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+a.loginLink:link,
+a.loginLink:visited {
+  background-color: green;
+  color: white;
+}

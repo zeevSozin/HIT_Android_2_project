@@ -1,0 +1,11 @@
+.card {
+  background-color: antiquewhite;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 7px;
+  margin-top: 1em;
+}
+.card img {
+  height: 20rem;
+}

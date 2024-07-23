@@ -1,0 +1,36 @@
+.frame {
+  /* margin: 2.5rem;
+  padding: 2.5rem 5rem;
+  background-color: green;
+  min-height: calc(100vh - 5rem); */
+  /* align-items: center; */
+  justify-content: center;
+}
+
+.form {
+  background-color: gray;
+  border-radius: 7px;
+  padding: 2rem 3rem;
+  /* width: 30rem; */
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  /* align-content: center; */
+  gap: 2rem;
+}
+.row {
+  display: flex;
+  gap: 0.5rem;
+  /* flex-direction: column; */
+}
+
+button {
+  display: flex;
+  /* background-color: aqua; */
+  /* justify-content: center; */
+  justify-content: center;
+}
+.regiter {
+  display: flex;
+  align-content: space-between;
+}
