@@ -1,5 +1,4 @@
 const express = require("express");
-const dotenv = require("dotenv");
 const { generateJWT } = require("./../helpers/jwtMiddelware.js");
 const {
   encrypt,
@@ -9,10 +8,8 @@ const logger = require("./../util/logger.js");
 // const { saveOne } = require("./../helpers/dbContext.js");
 const DbContext = require("./../helpers/dbContext.js");
 const User = require("./../model/user");
-const { error } = require("winston");
-const router = express.Router();
 
-// dotenv.config();
+const router = express.Router();
 
 const dbContext = new DbContext();
 
@@ -104,7 +101,7 @@ router.post("/register", encrypt, async (req, res) => {
       const payload = {
         firstName: user.firstName,
         lastName: user.lastName,
-        userName: user.userName,
+        email: user.email,
         role: "user",
       };
       token = generateJWT(payload);
@@ -159,17 +156,18 @@ router.post("/validate", async (req, res) => {
       console.log(compRes);
       if (!compRes) {
         res.status(401).json({ error: "Unauthorized" });
-      }
-      const payload = {
-        firstName: user.firstName,
-        lastName: user.lastName,
-        userName: user.userName,
-        role: user.role,
-      };
-      token = generateJWT(payload);
+      } else {
+        const payload = {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          role: user.role,
+        };
+        token = generateJWT(payload);
 
-      token = generateJWT(payload);
-      res.status(200).json({ token: token });
+        token = generateJWT(payload);
+        res.status(200).json({ token: token });
+      }
     }
   } catch (error) {
     logger.error(error.message + error.stack);

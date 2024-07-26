@@ -6,7 +6,7 @@ function MovieCard({ data }) {
       <h3>{data.original_title}</h3>
       <img src={data.poster_path} alt={data.original_title} />
 
-      <p>{data.overview}</p>
+      {/* <p>{data.overview}</p> */}
       <button>Order now</button>
     </div>
   );

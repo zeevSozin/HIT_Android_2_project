@@ -1,0 +1,15 @@
+.buttonCluster {
+  display: flex;
+  flex-direction: row;
+  background-color: aqua;
+  justify-content: space-between;
+}
+button {
+  margin: 1em;
+}
+
+.filter {
+  display: flex;
+  justify-content: space-between;
+  margin: 1em;
+}

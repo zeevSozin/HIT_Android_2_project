@@ -1,10 +1,12 @@
 import axios from "axios";
 const BASE_URL = "http://localhost:5000";
 
-export default axios.create({
-  baseURL: BASE_URL,
-  headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-  },
-});
+export async function getMoviesOnCinema() {
+  try {
+    const response = await axios.get(BASE_URL + "/moviesprovider/nowInCinemas");
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error(error);
+  }
+}

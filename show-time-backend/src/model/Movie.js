@@ -21,6 +21,10 @@ const movieSchema = new Schema({
   vote_average: Number,
   vote_count: Number,
   embeded_youtube: String,
+  avalibleAmount: Number,
+  soldAmount: Number,
+  price: Number,
+  retailPrice: Number,
 });
 
 const Movie = model("movie", movieSchema);

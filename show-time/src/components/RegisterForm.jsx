@@ -1,8 +1,11 @@
 import styles from "./RegisterForm.module.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "./../App";
+
 function RegisterForm() {
+  const { logedInUser, setLogedInUser } = useContext(UserContext);
   const [firstName, setFirstName] = useState("");
   const [lastName, setlastName] = useState("");
   const [email, setEmail] = useState("");
@@ -57,6 +60,12 @@ function RegisterForm() {
       );
       console.log(resopnse);
       if (resopnse.status === 201) {
+        setLogedInUser({
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          role: "user",
+        });
         navigate("/");
       }
     } catch (error) {

@@ -1,23 +1,52 @@
 import { NavLink } from "react-router-dom";
 import styles from "./PageNavigation.module.css";
+import { useContext } from "react";
+import { UserContext } from "./../App";
 
 function PageNavigation() {
+  const { logedInUser, setLogedInUser } = useContext(UserContext);
+
+  function handleLogout(e) {
+    console.log("handle logout");
+
+    setLogedInUser({
+      firstName: "",
+      lastName: "",
+      email: "",
+      role: "",
+    });
+    console.log("loged in user context:", logedInUser);
+  }
   return (
     <nav className={styles.nav}>
       <ul>
         <li>
-          <NavLink to="/dashBoard">Dash</NavLink>
+          {(logedInUser.role === "manager" || logedInUser.role === "admin") && (
+            <NavLink to="/dashBoard">Dash</NavLink>
+          )}
         </li>
         <li>
-          <NavLink to="/inventory">Inventory</NavLink>
+          {(logedInUser.role === "manager" || logedInUser.role === "admin") && (
+            <NavLink to="/inventory">Inventory</NavLink>
+          )}
         </li>
         <li>
-          <NavLink to="/users">users</NavLink>
+          {logedInUser.role === "admin" && <NavLink to="/users">users</NavLink>}
         </li>
         <li>
-          <NavLink to="/login" className={styles.loginLink}>
-            Login
-          </NavLink>
+          {logedInUser.email !== "" ? (
+            <NavLink
+              to="/"
+              onClick={handleLogout}
+              className={styles.loguotLink}
+            >
+              {logedInUser.firstName}
+            </NavLink>
+          ) : (
+            <NavLink to="/login" className={styles.loginLink}>
+              Login
+            </NavLink>
+          )}
         </li>
       </ul>
     </nav>

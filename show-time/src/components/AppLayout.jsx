@@ -15,7 +15,7 @@ function AppLayout() {
       <div className={styles.header}>
         <PageHeader />
       </div>
-      <main className={styles.content}>
+      <div className={styles.content}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="login" element={<LoginPage />} />
@@ -25,7 +25,7 @@ function AppLayout() {
           <Route path="users" element={<UsersPage />} />
         </Routes>
         {/* {Children} */}
-      </main>
+      </div>
       <div className={styles.fotter}>
         <PageFotter />
       </div>

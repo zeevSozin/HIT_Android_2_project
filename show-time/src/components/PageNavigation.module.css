@@ -18,15 +18,28 @@
 .nav a:visited {
   color: #000;
   text-transform: uppercase;
-  background-color: rgb(177, 222, 240);
+  /* background-color: rgb(177, 222, 240); */
   padding: 0.8rem 2rem;
+  border: solid;
+  border-width: thin;
+  border-color: aqua;
   border-radius: 7px;
   font-weight: 600;
   text-decoration: none;
 }
 
+.nav a:global(.active) {
+  background-color: rgb(177, 222, 240);
+}
+
 a.loginLink:link,
 a.loginLink:visited {
   background-color: green;
+  color: white;
+}
+
+a.loguotLink:link,
+a.loguotLink:visited {
+  background-color: rgb(2, 148, 245);
   color: white;
 }

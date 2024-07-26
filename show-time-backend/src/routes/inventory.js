@@ -3,6 +3,8 @@ const dotenv = require("dotenv");
 const logger = require("../util/logger.js");
 const DbContext = require("../helpers/dbContext.js");
 const Movie = require("../model/movie.js");
+const Imi = require("./../model/imi.js");
+const renameKeys = require("./../util/renameKey.js");
 const router = express.Router();
 
 const dbContext = new DbContext();
@@ -12,6 +14,10 @@ const dbContext = new DbContext();
  *  components:
  *    schemas:
  *      Movie:
+ *        type: object
+ *        properties:
+ *         _id:
+ *           type: string
  *         adult:
  *           type: boolean
  *         backdrop_path:
@@ -78,7 +84,43 @@ const dbContext = new DbContext();
  *         embeded_youtube:
  *           type: string
  *           example: PLl99DlL6b4
+ *         avalibleAmount:
+ *           type: integer
+ *           format: int32
+ *         soldAmount:
+ *           type: integer
+ *           format: int32
+ *         price:
+ *           type: number
+ *         retailPrice:
+ *           type: number
  */
+
+/**
+ * @swagger
+ * /inventory:
+ *  get:
+ *    tags: [Inventory]
+ *    responses:
+ *      200:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                $ref: '#/components/schemas/Movie'
+ */
+
+router.get("/", async (req, res) => {
+  try {
+    logger.debug(" GET /inventory request ");
+    const movies = await dbContext.select(Movie);
+    res.status(200).json(movies);
+  } catch (error) {
+    logger.error(error.message);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 
 /**
  * @swagger
@@ -117,9 +159,83 @@ const dbContext = new DbContext();
 
 router.post("/add", async (req, res) => {
   try {
-    logger.gebug(" POST /inventory/add request body: %j", req.body);
-    await dbContext.saveOne(Movie, { ...req.body });
-    res.status(201).json({ message: "Movie added to inventory" });
+    logger.debug(" POST /inventory/add request body: %j", req.body);
+    const movie = await dbContext.saveOne(Movie, { ...req.body });
+    res.status(201).json({ message: "Movie added to inventory", data: movie });
+  } catch (error) {
+    logger.error(error.message);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+/**
+ * @swagger
+ * /inventory/update:
+ *  post:
+ *    tags: [Inventory]
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/Movie'
+ *    responses:
+ *      201:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              items:
+ *              properties:
+ *                token:
+ *                  type: string
+ *                  exapmle: xyz...xzy
+ */
+
+router.post("/update", async (req, res) => {
+  try {
+    logger.debug(" POST /inventory/update request body: %j", req.body);
+    const movie = await dbContext.updateById(Movie, req.body._id, {
+      ...req.body,
+    });
+    res.status(201).json({ message: "Movie updated", data: movie });
+  } catch (error) {
+    logger.error(error.message);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+/**
+ * @swagger
+ *   /inventory/{id}:
+ *     delete:
+ *       tags: [Inventory]
+ *       description: This movie record by id
+ *       parameters:
+ *         - in: path
+ *           name: id
+ *           type: string
+ *           required: true
+ *           description: The movie id
+ *       responses:
+ *         200:
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: object
+ *                 items:
+ *                 properties:
+ *                   embededId:
+ *                     type: string
+ *                     example: MCsG9zH7DJE
+ *
+ */
+
+router.delete("/:id", async (req, res) => {
+  try {
+    logger.debug(" DELETE /inventory/id request parms: %j", req.params.id);
+    const movie = await dbContext.deleteById(Movie, req.params.id);
+    res.status(202).json({ message: "Movie deleted", data: movie });
   } catch (error) {
     logger.error(error.message);
     res.status(500).json({ error: "Internal server error" });

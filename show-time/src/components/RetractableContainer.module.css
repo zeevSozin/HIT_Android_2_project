@@ -1,0 +1,53 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  background-color: yellow;
+  /* align-items: stretch; */
+  gap: 0.5em;
+}
+.sideBar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5em;
+  width: 5%;
+  /* display: none; */
+  /* display: block; */
+  /* content: hide; */
+  /* display: flex; */
+  /* flex-direction: column; */
+  background-color: rgb(43, 255, 0);
+  /* transition-delay: 2s ease; */
+  transition: 1s ease-in-out;
+}
+
+.sideBar.open {
+  width: 30%;
+  /* transition-delay: 0.5s ease; */
+  /* transition: 1s ease-in-out; */
+}
+.contentContainer {
+  /* display: flex; */
+  /* flex-wrap: wrap; */
+  /* width: 70%; */
+  background-color: rgb(255, 208, 0);
+  flex-grow: 1;
+  padding: 0.5em;
+  /* transition: 1s ease-in-out; */
+}
+
+.sideBarContent {
+  display: none;
+}
+
+.sideBarContent.open {
+  display: block;
+}
+
+.expandButton {
+  /* background-color: aqua; */
+}
+
+:hover .expandButton {
+  cursor: pointer;
+}
