@@ -11,12 +11,26 @@ import SearchBar from "../components/SearchBar";
 import InventorySideBarContent from "../components/inventory/InventorySideBarContent";
 import { InventoryMovieContext } from "../App";
 import { mocData } from "./../util/mocData.js";
+import { getItems } from "../apis/Inventory.js";
 
 function InventoryPage() {
-  const { isLoading, data, error } = useQuery({
-    queryKey: ["movieNowOnCinemas"],
+  // const { isLoading, data, error } = useQuery({
+  //   queryKey: ["movieNowOnCinemas"],
+  //   queryFn: async () => {
+  //     const movies = await getMoviesOnCinema();
+  //     setInventoryMovies(movies);
+  //     return movies;
+  //   },
+  // });
+
+  const {
+    isLoading: inventoryDataLoading,
+    data: inventoryData,
+    error: incentoryError,
+  } = useQuery({
+    queryKey: ["inventory"],
     queryFn: async () => {
-      const movies = await getMoviesOnCinema();
+      const movies = await getItems();
       setInventoryMovies(movies);
       return movies;
     },
