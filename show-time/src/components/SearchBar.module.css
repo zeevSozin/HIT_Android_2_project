@@ -1,3 +1,10 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  font-size: small;
+  overflow: hidden;
+}
+
 .buttonCluster {
   display: flex;
   flex-direction: row;
@@ -5,11 +12,19 @@
   justify-content: space-between;
 }
 button {
-  margin: 1em;
+  /* margin: 1em; */
 }
 
 .filter {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin: 1em;
+}
+
+.resultsContatiner {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  flex-grow: 1;
 }

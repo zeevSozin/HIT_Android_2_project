@@ -1,52 +1,112 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styles from "./SearchBar.module.css";
-
-const generes = [
-  { key: 28, value: "Action" },
-  { key: 12, value: "Adventure" },
-  { key: 16, value: "Animation" },
-  { key: 35, value: "Comedy" },
-  { key: 80, value: "Crime" },
-  { key: 99, value: "Documentary" },
-  { key: 18, value: "Drama" },
-  { key: 10751, value: "Family" },
-  { key: 14, value: "Fantasy" },
-  { key: 36, value: "History" },
-  { key: 27, value: "Horror" },
-  { key: 10402, value: "Music" },
-  { key: 9648, value: "Mystery" },
-  { key: 10749, value: "Romance" },
-  { key: 878, value: "Science Fiction" },
-  { key: 10770, value: "TV Movie" },
-  { key: 53, value: "Thriller" },
-  { key: 10752, value: "War" },
-  { key: 37, value: "Western" },
-];
+import ItemListConatiner from "./ItemListConatiner";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { genresDict } from "./../data/genresDict.js";
+import { InventoryMovieContext } from "./../App";
+import {
+  getMoviesTopRatedMovies,
+  getMoviesOnCinema,
+  getMoviesByGenre,
+  getMoviesByName,
+  getMoviesByRating,
+} from "./../apis/movieProvider";
 
 function SearchBar() {
   const [selectedGenre, setSelectedGenere] = useState("None");
+  const [selectedGenreId, setSelectedGenereId] = useState(28);
   const [searchName, setSearchName] = useState("");
   const [raiting, setrating] = useState(0);
+  const [isNowOnCinemasEnabled, setIsNowOnCinemaEnabled] = useState(true);
+  const { inventoryMovies, setInventoryMovies } = useContext(
+    InventoryMovieContext
+  );
+
+  // queries
+  const {
+    isLoading: isLoadingMoviesNowOnCinema,
+    isError: isErrorMoviesNowOnCinema,
+    data: moviesNowOnCinema,
+    error: ErrorMoviesNowOnCinema,
+  } = useQuery({
+    queryKey: ["searchNowOnCinema"],
+    queryFn: getMoviesOnCinema,
+  });
+
+  const {
+    isLoading: isLoadingMoviesTopRated,
+    isError: isErrorMoviesTopRated,
+    data: moviesTopRated,
+    error: ErrorMoviesTopRated,
+  } = useQuery({
+    queryKey: ["searchTopRated"],
+    queryFn: getMoviesTopRatedMovies,
+  });
+
+  const mutatesearchByGenre = useMutation({
+    queryKey: ["searchMovies"],
+    mutationFn: async (id) => {
+      const data = await getMoviesByGenre(id);
+      setInventoryMovies((cur) => (cur = data));
+    },
+  });
+
+  const mutateByName = useMutation({
+    queryKey: ["searchMovies"],
+    mutationFn: async (name) => {
+      const data = await getMoviesByName(name);
+      setInventoryMovies((cur) => (cur = data));
+    },
+  });
+
+  const mutateByRatong = useMutation({
+    queryKey: ["searchMovies"],
+    mutationFn: async (maxRate) => {
+      const data = await getMoviesByRating(maxRate);
+      setInventoryMovies((cur) => (cur = data));
+    },
+  });
+
+  // event handlers
+
+  async function handleSearchNowOnCinema(e) {
+    setInventoryMovies((cur) => (cur = moviesNowOnCinema));
+  }
+  function handleSearchTopRated(e) {
+    setInventoryMovies((cur) => (cur = moviesTopRated));
+  }
 
   function handleSearchByGenere(e) {
     alert(`slected genre: ${e.target.value}`);
+    const val = e.target.value;
+    setSelectedGenere((cur) => (cur = val));
+    const genreId = genresDict.filter((entry) => entry.value === val)[0].key;
+    setSelectedGenereId((cur) => (cur = genreId));
+
+    mutatesearchByGenre.mutate(selectedGenreId);
   }
 
-  function handleSearchByName(e) {}
+  function handleSearchByName(e) {
+    const val = e.target.value;
+    setSearchName((cur) => (cur = val));
+    val ? mutateByName.mutate(val) : handleSearchNowOnCinema();
+  }
 
   function handleRatingChange(e) {
-    setrating((cur) => (cur = e.target.value));
+    const val = e.target.value;
+    setrating((cur) => (cur = val));
+    mutateByRatong.mutate(val);
   }
   return (
-    <div>
+    <div className={styles.container}>
       <div className={styles.buttonCluster}>
-        <button>Now on cinemas</button>
-        <button>Top Rated</button>
+        <button onClick={handleSearchNowOnCinema}>Now on cinemas</button>
+        <button onClick={handleSearchTopRated}>Top Rated</button>
       </div>
       <div className={styles.filter}>
         <label>Gaenare</label>
         <select value={selectedGenre} onChange={handleSearchByGenere}>
-          {generes.map((genere) => (
+          {genresDict.map((genere) => (
             <option key={genere.key} value={genere.value}>
               {genere.value}
             </option>
@@ -58,17 +118,18 @@ function SearchBar() {
         <input type="text" value={searchName} onChange={handleSearchByName} />
       </div>
       <div className={styles.filter}>
-        <label style={{ marginRight: 5 }}>Rating</label>
+        <label style={{ marginRight: 5 }}>Min. Rating</label>
         <input
           type="range"
           name="rate"
           min="0"
           max="10"
-          //   value={raiting}
+          value={raiting}
           onChange={handleRatingChange}
         />
         {raiting}
       </div>
+      {/* <button onClick={() => setSearchMovieResults([])}>Clear</button> */}
     </div>
   );
 }

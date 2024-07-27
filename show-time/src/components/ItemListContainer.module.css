@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  align-items: flex-start;
+  justify-content: space-around;
+  gap: 1em;
+  margin: 1em;
+  overflow-y: auto;
+  background-color: rgb(253, 202, 202);
+}

@@ -16,6 +16,8 @@ const queryClient = new QueryClient({
 
 export const UserContext = createContext();
 export const TokenContext = createContext();
+export const SearchMovieContext = createContext();
+export const InventoryMovieContext = createContext([]);
 
 function App() {
   const [logedInUser, setLogedInUser] = useState({
@@ -24,6 +26,9 @@ function App() {
     email: "",
     role: "",
   });
+
+  const [searchMovieResults, setSearchMovieResults] = useState([]);
+  const [inventoryMovies, setInventoryMovies] = useState([]);
 
   return (
     <>
@@ -35,9 +40,20 @@ function App() {
             setLogedInUser: setLogedInUser,
           }}
         >
-          <BrowserRouter>
-            <AppLayout />
-          </BrowserRouter>
+          <SearchMovieContext.Provider
+            value={{
+              searchMovieResults: searchMovieResults,
+              setSearchMovieResults: setSearchMovieResults,
+            }}
+          >
+            <InventoryMovieContext.Provider
+              value={{ inventoryMovies, setInventoryMovies }}
+            >
+              <BrowserRouter>
+                <AppLayout />
+              </BrowserRouter>
+            </InventoryMovieContext.Provider>
+          </SearchMovieContext.Provider>
         </UserContext.Provider>
       </QueryClientProvider>
     </>

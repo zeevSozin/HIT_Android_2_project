@@ -2,6 +2,8 @@ import { NavLink } from "react-router-dom";
 import styles from "./PageNavigation.module.css";
 import { useContext } from "react";
 import { UserContext } from "./../App";
+import { FaUserAltSlash } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
 
 function PageNavigation() {
   const { logedInUser, setLogedInUser } = useContext(UserContext);
@@ -40,10 +42,12 @@ function PageNavigation() {
               onClick={handleLogout}
               className={styles.loguotLink}
             >
+              <FaUserAltSlash size={20} />
               {logedInUser.firstName}
             </NavLink>
           ) : (
             <NavLink to="/login" className={styles.loginLink}>
+              <FaUser size={20} />
               Login
             </NavLink>
           )}

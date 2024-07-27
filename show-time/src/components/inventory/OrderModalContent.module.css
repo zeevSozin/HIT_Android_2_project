@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  overflow-y: auto;
+}
+
+.content {
+  display: flex;
+  justify-content: space-around;
+}
+
+.orderContent {
+  display: flex;
+  margin: 1em;
+  justify-content: space-around;
+}
+
+.trailer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}

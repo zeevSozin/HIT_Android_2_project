@@ -1,0 +1,18 @@
+.container {
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+
+.list li {
+  list-style: none;
+}
+
+.list li:hover {
+  font-size: large;
+  cursor: pointer;
+  font-size-adjust: 20px;
+}

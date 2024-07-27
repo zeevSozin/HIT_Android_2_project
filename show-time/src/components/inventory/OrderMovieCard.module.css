@@ -1,0 +1,19 @@
+.card {
+  background-color: antiquewhite;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 7px;
+  padding: 0.5em;
+
+  /* margin-top: 1em; */
+}
+.card img {
+  height: 20rem;
+}
+
+.bottomButtonConatiner {
+  display: flex;
+  align-self: stretch;
+  justify-content: space-around;
+}

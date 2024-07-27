@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  overflow-y: auto;
+}
+
+.content {
+  display: flex;
+  justify-content: space-around;
+}
+
+.movieDetailes {
+  display: flex;
+  flex-direction: column;
+  margin-left: 1em;
+}
+
+.trailer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
