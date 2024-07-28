@@ -3,6 +3,7 @@
   flex-direction: column;
   font-size: small;
   overflow: hidden;
+  background-color: var(--color-surface-mixed-400);
 }
 
 .buttonCluster {

@@ -9,43 +9,44 @@ import { useContext, useState } from "react";
 import RetractableContainer from "../components/RetractableContainer";
 import SearchBar from "../components/SearchBar";
 import InventorySideBarContent from "../components/inventory/InventorySideBarContent";
-import { InventoryMovieContext } from "../App";
+import { SearchMovieContext, ShownMovieContext } from "../App";
 import { mocData } from "./../util/mocData.js";
 import { getItems } from "../apis/Inventory.js";
 
 function InventoryPage() {
+  const { searchMoviesResult, setSearchMoviesResult } =
+    useContext(SearchMovieContext);
+
   // const { isLoading, data, error } = useQuery({
   //   queryKey: ["movieNowOnCinemas"],
   //   queryFn: async () => {
   //     const movies = await getMoviesOnCinema();
-  //     setInventoryMovies(movies);
+  //     setSearchMoviesResult(movies);
   //     return movies;
   //   },
   // });
 
-  const {
-    isLoading: inventoryDataLoading,
-    data: inventoryData,
-    error: incentoryError,
-  } = useQuery({
-    queryKey: ["inventory"],
-    queryFn: async () => {
-      const movies = await getItems();
-      setInventoryMovies(movies);
-      return movies;
-    },
-  });
+  // const {
+  //   isLoading: inventoryDataLoading,
+  //   data: inventoryData,
+  //   error: incentoryError,
+  // } = useQuery({
+  //   queryKey: ["inventory"],
+  //   queryFn: async () => {
+  //     const movies = await getItems();
+  //     setMovies(movies);
+  //     return movies;
+  //   },
+  // });
 
-  const { inventoryMovies, setInventoryMovies } = useContext(
-    InventoryMovieContext
-  );
+  const { movies, setMovies } = useContext(ShownMovieContext);
 
   return (
     <div className={styles.page}>
       {/* {console.log(typeof inventoryMovies, inventoryMovies)} */}
       <RetractableContainer
         sidebarContent={<InventorySideBarContent />}
-        mainContent={<ListContainer data={inventoryMovies} />}
+        mainContent={<ListContainer data={movies} />}
       />
     </div>
   );

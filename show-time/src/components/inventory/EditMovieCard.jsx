@@ -1,10 +1,10 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
+import styles from "./EditMovieCard.module.css";
 import Modal from "../Modal";
-import styles from "./OrderMovieCard.module.css";
 import MovieModalContent from "../MovieModalContent";
 import OrderModalContent from "./OrderModalContent";
 
-function OrderMovieCard({ data }) {
+function EditMovieCard({ data }) {
   const [isDetailsOpen, setIsDetailesOpen] = useState(false);
   const [isOrderOpen, setIsOrderOpen] = useState(false);
 
@@ -15,14 +15,16 @@ function OrderMovieCard({ data }) {
   function handleOrder(e) {
     setIsOrderOpen((cur) => (cur = true));
   }
-
   return (
     <div>
       <div className={styles.card}>
         <h3>{data.original_title}</h3>
         <img src={data.poster_path} alt={data.original_title} />
-        <span>Rating: {data.vote_average}</span>
-        <div className={styles.bottomButtonConatiner}>
+        <span>Price: {data.price}</span>
+        <span>Retail price: {data.retailPrice}</span>
+        <span>Amount in stock: {data.avalibleAmount}</span>
+        <span>Sold units: {data.avalibleAmount}</span>
+        <div className={styles.soldAmount}>
           <button onClick={handleShowDetaies}>Detailes</button>
           <Modal
             isOpen={isDetailsOpen}
@@ -30,7 +32,7 @@ function OrderMovieCard({ data }) {
           >
             <MovieModalContent data={data} />
           </Modal>
-          <button onClick={handleOrder}>Order now</button>
+          <button onClick={handleOrder}>Edit</button>
 
           <Modal isOpen={isOrderOpen} onClose={() => setIsOrderOpen(false)}>
             <OrderModalContent data={data} />
@@ -41,4 +43,4 @@ function OrderMovieCard({ data }) {
   );
 }
 
-export default OrderMovieCard;
+export default EditMovieCard;

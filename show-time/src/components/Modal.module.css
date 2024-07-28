@@ -5,6 +5,7 @@
   left: 0;
   width: 100%;
   height: 100%;
+  z-index: 999;
 }
 
 .modalContainer {
@@ -20,7 +21,8 @@
   align-items: center;
   overflow-y: auto;
   padding: 1em;
-  background-color: rgb(163, 163, 163);
+  /* background-color: var(--color-surface-mixed-600); */
+  z-index: 1000;
 }
 
 .closeButton {

@@ -15,9 +15,17 @@ function RetractableContainer({ sidebarContent, sidebarToggle, mainContent }) {
       <div className={`${styles.sideBar} ${isSideBarOpen ? styles.open : ""}`}>
         <div className={styles.expandButton}>
           {isSideBarOpen ? (
-            <FaChevronCircleLeft onClick={handleToggleSideBar} size={20} />
+            <FaChevronCircleLeft
+              onClick={handleToggleSideBar}
+              size={20}
+              className={styles.expandButton}
+            />
           ) : (
-            <FaChevronCircleRight onClick={handleToggleSideBar} size={20} />
+            <FaChevronCircleRight
+              onClick={handleToggleSideBar}
+              size={20}
+              className={styles.expandButton}
+            />
           )}
         </div>
         <div

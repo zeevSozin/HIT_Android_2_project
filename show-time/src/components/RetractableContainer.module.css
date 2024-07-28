@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-direction: row;
-  background-color: yellow;
+  background-color: var(--color-surface-mixed-400);
   /* align-content: flex-start; */
   gap: 0.5em;
 }
@@ -19,7 +19,7 @@
   /* content: hide; */
   /* display: flex; */
   /* flex-direction: column; */
-  background-color: rgb(43, 255, 0);
+  background-color: var(--color-surface-mixed-400);
   /* transition-delay: 2s ease; */
   transition: 1s ease-in-out;
 }
@@ -33,7 +33,7 @@
   /* display: flex; */
   /* flex-wrap: wrap; */
   /* width: 70%; */
-  background-color: rgb(255, 208, 0);
+  background-color: var(--color-surface-mixed-200);
   flex-grow: 1;
   padding: 0.5em;
   overflow: hidden;
@@ -43,6 +43,7 @@
 .sideBarContent {
   align-self: flex-start;
   display: none;
+  background-color: var(--color-surface-mixed-400);
 }
 
 .sideBarContent.open {
@@ -51,6 +52,9 @@
 
 .expandButton {
   /* background-color: aqua; */
+  background-color: var(--color-surface-mixed-400);
+  /* color: var(--color-surface-mixed-400); */
+  align-self: flex-end;
 }
 
 :hover .expandButton {

@@ -1,18 +1,29 @@
 .container {
+  background-color: var(--color-surface-mixed-400);
 }
 
 .list {
   display: flex;
   flex-direction: column;
   gap: 2em;
+  background-color: var(--color-surface-mixed-400);
+}
+
+.list ul {
+  background-color: var(--color-surface-mixed-400);
 }
 
 .list li {
   list-style: none;
+  background-color: var(--color-surface-mixed-400);
+}
+.list li p {
+  background-color: var(--color-surface-mixed-400);
 }
 
 .list li:hover {
   font-size: large;
   cursor: pointer;
-  font-size-adjust: 20px;
+  /* font-size-adjust: 20px; */
+  resize: 1.5;
 }

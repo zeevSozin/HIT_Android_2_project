@@ -1,9 +1,9 @@
-import styles from "./MovieDetailes.module.css";
-import { genresDict } from "./../data/genresDict";
+import styles from "./MovieModalContent.module.css";
+import { genresDict } from "../data/genresDict";
 import Rating from "react-rating-stars-component";
 import YoutubeEmbed from "./YoutubeEmbeded";
 
-function MovieDetailes({ data }) {
+function MovieModalContent({ data }) {
   return (
     <div className={styles.conatiner}>
       <div className={styles.content}>
@@ -45,4 +45,4 @@ function MovieDetailes({ data }) {
   );
 }
 
-export default MovieDetailes;
+export default MovieModalContent;

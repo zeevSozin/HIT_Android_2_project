@@ -7,4 +7,5 @@
   gap: 1em;
   margin: 1em;
   overflow-y: auto;
+  background-color: var(--color-surface-mixed-200);
 }

@@ -16,8 +16,11 @@ const queryClient = new QueryClient({
 
 export const UserContext = createContext();
 export const TokenContext = createContext();
-export const SearchMovieContext = createContext();
+export const SearchMovieContext = createContext([]);
 export const InventoryMovieContext = createContext([]);
+export const ShownMovieContext = createContext([]);
+export const MovieInCartContext = createContext([]);
+export const CardModeContext = createContext("");
 
 function App() {
   const [logedInUser, setLogedInUser] = useState({
@@ -27,8 +30,11 @@ function App() {
     role: "",
   });
 
-  const [searchMovieResults, setSearchMovieResults] = useState([]);
+  const [searchMoviesResults, setSearchMoviesResults] = useState([]);
   const [inventoryMovies, setInventoryMovies] = useState([]);
+  const [movies, setMovies] = useState([]);
+  const [moviesInCart, setMoviesInCart] = useState([]);
+  const [cardMode, setCardMode] = useState("sell");
 
   return (
     <>
@@ -42,16 +48,24 @@ function App() {
         >
           <SearchMovieContext.Provider
             value={{
-              searchMovieResults: searchMovieResults,
-              setSearchMovieResults: setSearchMovieResults,
+              searchMoviesResults,
+              setSearchMoviesResults,
             }}
           >
             <InventoryMovieContext.Provider
               value={{ inventoryMovies, setInventoryMovies }}
             >
-              <BrowserRouter>
-                <AppLayout />
-              </BrowserRouter>
+              <MovieInCartContext.Provider
+                value={{ moviesInCart, setMoviesInCart }}
+              >
+                <CardModeContext.Provider value={{ cardMode, setCardMode }}>
+                  <ShownMovieContext.Provider value={{ movies, setMovies }}>
+                    <BrowserRouter>
+                      <AppLayout />
+                    </BrowserRouter>
+                  </ShownMovieContext.Provider>
+                </CardModeContext.Provider>
+              </MovieInCartContext.Provider>
             </InventoryMovieContext.Provider>
           </SearchMovieContext.Provider>
         </UserContext.Provider>

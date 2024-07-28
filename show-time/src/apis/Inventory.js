@@ -7,7 +7,7 @@ const axiosInventoryProvider = axios.create({
 
 export async function getItems() {
   try {
-    console.log("post data");
+    console.log("get Items");
     const response = await axiosInventoryProvider.get("/inventory");
     console.log("response data: ", response.data);
     return response.data;
@@ -19,8 +19,35 @@ export async function getItems() {
 
 export async function addItem(data) {
   try {
-    console.log("post data", data);
+    console.log("post addItem data", data);
     const response = await axiosInventoryProvider.post("/inventory/add", data);
+    console.log("response data: ", response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error(error);
+  }
+}
+
+export async function updateItem(data) {
+  try {
+    console.log("post updateItem data", data);
+    const response = await axiosInventoryProvider.post(
+      "/inventory/update",
+      data
+    );
+    console.log("response data: ", response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error(error);
+  }
+}
+
+export async function deleteItem(id) {
+  try {
+    console.log("deleteItem id", id);
+    const response = await axiosInventoryProvider.delete(`/inventory/${id}`);
     console.log("response data: ", response.data);
     return response.data;
   } catch (error) {

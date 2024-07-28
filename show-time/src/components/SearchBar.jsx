@@ -3,7 +3,11 @@ import styles from "./SearchBar.module.css";
 import ItemListConatiner from "./ItemListConatiner";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { genresDict } from "./../data/genresDict.js";
-import { InventoryMovieContext } from "./../App";
+import {
+  InventoryMovieContext,
+  SearchMovieContext,
+  ShownMovieContext,
+} from "./../App";
 import {
   getMoviesTopRatedMovies,
   getMoviesOnCinema,
@@ -18,9 +22,9 @@ function SearchBar() {
   const [searchName, setSearchName] = useState("");
   const [raiting, setrating] = useState(0);
   const [isNowOnCinemasEnabled, setIsNowOnCinemaEnabled] = useState(true);
-  const { inventoryMovies, setInventoryMovies } = useContext(
-    InventoryMovieContext
-  );
+  const { movies, setMovies } = useContext(ShownMovieContext);
+  const { searchMovies, setSearchMoviesResult } =
+    useContext(SearchMovieContext);
 
   // queries
   const {
@@ -47,7 +51,7 @@ function SearchBar() {
     queryKey: ["searchMovies"],
     mutationFn: async (id) => {
       const data = await getMoviesByGenre(id);
-      setInventoryMovies((cur) => (cur = data));
+      setMovies((cur) => (cur = data));
     },
   });
 
@@ -55,7 +59,7 @@ function SearchBar() {
     queryKey: ["searchMovies"],
     mutationFn: async (name) => {
       const data = await getMoviesByName(name);
-      setInventoryMovies((cur) => (cur = data));
+      setMovies((cur) => (cur = data));
     },
   });
 
@@ -63,21 +67,20 @@ function SearchBar() {
     queryKey: ["searchMovies"],
     mutationFn: async (maxRate) => {
       const data = await getMoviesByRating(maxRate);
-      setInventoryMovies((cur) => (cur = data));
+      setMovies((cur) => (cur = data));
     },
   });
 
   // event handlers
 
   async function handleSearchNowOnCinema(e) {
-    setInventoryMovies((cur) => (cur = moviesNowOnCinema));
+    setMovies((cur) => (cur = moviesNowOnCinema));
   }
   function handleSearchTopRated(e) {
-    setInventoryMovies((cur) => (cur = moviesTopRated));
+    setMovies((cur) => (cur = moviesTopRated));
   }
 
   function handleSearchByGenere(e) {
-    alert(`slected genre: ${e.target.value}`);
     const val = e.target.value;
     setSelectedGenere((cur) => (cur = val));
     const genreId = genresDict.filter((entry) => entry.value === val)[0].key;

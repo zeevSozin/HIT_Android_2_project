@@ -1,1 +1,38 @@
+* {
+  background-color: var(--color-surface-100);
+  color: white;
+}
+:root {
+  /** CSS DARK THEME PRIMARY COLORS */
+  --color-primary-100: #ffeb3b;
+  --color-primary-200: #ffed58;
+  --color-primary-300: #ffef70;
+  --color-primary-400: #fff186;
+  --color-primary-500: #fff49b;
+  --color-primary-600: #fff6af;
 
+  /** CSS DARK THEME PRIMARY COLORS */
+  --color-secondary-100: #ff3b72;
+  --color-secondary-200: #ff5a80;
+  --color-secondary-300: #ff738f;
+  --color-secondary-400: #ff8a9e;
+  --color-secondary-500: #ff9fae;
+  --color-secondary-600: #ffb3bd;
+  /** CSS DARK THEME SURFACE COLORS */
+  --color-surface-100: #121212;
+  --color-surface-200: #282828;
+  --color-surface-300: #3f3f3f;
+  --color-surface-400: #575757;
+  --color-surface-500: #717171;
+  --color-surface-600: #8b8b8b;
+  /** CSS DARK THEME MIXED SURFACE COLORS */
+  --color-surface-mixed-100: #1a1625;
+  --color-surface-mixed-200: #2f2b3a;
+  --color-surface-mixed-300: #46424f;
+  --color-surface-mixed-400: #5e5a66;
+  --color-surface-mixed-500: #76737e;
+  --color-surface-mixed-600: #908d96;
+  /** EXAMPLES */
+  /* color: var(--color-primary-600);
+  background-color: var(--color-surface-300); */
+}
