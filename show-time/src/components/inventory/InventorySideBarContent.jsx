@@ -5,6 +5,7 @@ import SearchBar from "../SearchBar";
 import {
   CardModeContext,
   InventoryMovieContext,
+  LoadingContext,
   SearchMovieContext,
   ShownMovieContext,
 } from "../../App";
@@ -20,6 +21,10 @@ function InventorySideBarContent() {
   );
   const { searchMoviesResults, setSearchMoviesResults } =
     useContext(SearchMovieContext);
+
+  const { isLoading: isLoadingContext, setIsLoading } =
+    useContext(LoadingContext);
+
   const [isStockSelected, setIsStockSelected] = useState(true);
   const [isOrderSelected, setIsOrderSelected] = useState(false);
 
@@ -60,12 +65,24 @@ function InventorySideBarContent() {
   }
   return (
     <div className={styles.container}>
+      {setIsLoading(isLoading)}
+      {setIsLoading(inventoryMutation.isLoading)}
       <ul className={styles.list}>
-        <li onClick={handlOrderSelected}>Order supply</li>
+        <li
+          className={isOrderSelected && `${styles.selected}`}
+          onClick={handlOrderSelected}
+        >
+          Order supply
+        </li>
         <ColapsableItem setVisible={isOrderSelected}>
           <SearchBar />
         </ColapsableItem>
-        <li onClick={handleStockSelected}>On stock</li>
+        <li
+          className={isStockSelected && `${styles.selected}`}
+          onClick={handleStockSelected}
+        >
+          On stock
+        </li>
         <ColapsableItem setVisible={isStockSelected}>
           <p>books</p>
           <p>folders</p>

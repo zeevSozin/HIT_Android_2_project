@@ -1,8 +1,7 @@
 .container {
   display: flex;
   flex-direction: row;
-  background-color: var(--color-surface-mixed-400);
-  /* align-content: flex-start; */
+  background-color: var(--color-surface-300);
   gap: 0.5em;
 }
 .sideBar {
@@ -14,36 +13,24 @@
   align-items: center;
   padding: 0.5em;
   width: 5%;
-  /* display: none; */
-  /* display: block; */
-  /* content: hide; */
-  /* display: flex; */
-  /* flex-direction: column; */
-  background-color: var(--color-surface-mixed-400);
-  /* transition-delay: 2s ease; */
+  background-color: var(--color-surface-300);
   transition: 1s ease-in-out;
 }
 
 .sideBar.open {
   width: 30%;
-  /* transition-delay: 0.5s ease; */
-  /* transition: 1s ease-in-out; */
 }
 .contentContainer {
-  /* display: flex; */
-  /* flex-wrap: wrap; */
-  /* width: 70%; */
-  background-color: var(--color-surface-mixed-200);
+  background-color: var(--color-surface-100);
   flex-grow: 1;
   padding: 0.5em;
   overflow: hidden;
-  /* transition: 1s ease-in-out; */
 }
 
 .sideBarContent {
   align-self: flex-start;
   display: none;
-  background-color: var(--color-surface-mixed-400);
+  background-color: var(--color-surface-300);
 }
 
 .sideBarContent.open {
@@ -51,9 +38,7 @@
 }
 
 .expandButton {
-  /* background-color: aqua; */
-  background-color: var(--color-surface-mixed-400);
-  /* color: var(--color-surface-mixed-400); */
+  background-color: var(--color-surface-300);
   align-self: flex-end;
 }
 

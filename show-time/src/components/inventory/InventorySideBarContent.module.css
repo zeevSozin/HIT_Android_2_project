@@ -1,29 +1,35 @@
 .container {
-  background-color: var(--color-surface-mixed-400);
+  background-color: var(--color-surface-300);
 }
 
 .list {
   display: flex;
   flex-direction: column;
   gap: 2em;
-  background-color: var(--color-surface-mixed-400);
+  background-color: var(--color-surface-300);
 }
 
 .list ul {
-  background-color: var(--color-surface-mixed-400);
+  background-color: var(--color-surface-300);
 }
 
 .list li {
   list-style: none;
-  background-color: var(--color-surface-mixed-400);
+  font-size: large;
+  background-color: var(--color-surface-300);
+  /* color: var(--color-primary-100); */
 }
 .list li p {
-  background-color: var(--color-surface-mixed-400);
+  background-color: var(--color-surface-300);
 }
 
 .list li:hover {
-  font-size: large;
+  font-size: larger;
   cursor: pointer;
   /* font-size-adjust: 20px; */
   resize: 1.5;
+}
+.selected {
+  color: var(--color-primary-100);
+  font-size: larger;
 }

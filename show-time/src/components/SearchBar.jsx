@@ -5,6 +5,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { genresDict } from "./../data/genresDict.js";
 import {
   InventoryMovieContext,
+  LoadingContext,
   SearchMovieContext,
   ShownMovieContext,
 } from "./../App";
@@ -25,6 +26,8 @@ function SearchBar() {
   const { movies, setMovies } = useContext(ShownMovieContext);
   const { searchMovies, setSearchMoviesResult } =
     useContext(SearchMovieContext);
+
+  const { isLoading, setIsLoading } = useContext(LoadingContext);
 
   // queries
   const {
@@ -75,9 +78,11 @@ function SearchBar() {
 
   async function handleSearchNowOnCinema(e) {
     setMovies((cur) => (cur = moviesNowOnCinema));
+    setSearchName("");
   }
   function handleSearchTopRated(e) {
     setMovies((cur) => (cur = moviesTopRated));
+    setSearchName("");
   }
 
   function handleSearchByGenere(e) {
@@ -85,6 +90,7 @@ function SearchBar() {
     setSelectedGenere((cur) => (cur = val));
     const genreId = genresDict.filter((entry) => entry.value === val)[0].key;
     setSelectedGenereId((cur) => (cur = genreId));
+    setSearchName("");
 
     mutatesearchByGenre.mutate(selectedGenreId);
   }
@@ -99,9 +105,15 @@ function SearchBar() {
     const val = e.target.value;
     setrating((cur) => (cur = val));
     mutateByRatong.mutate(val);
+    setSearchName("");
   }
   return (
     <div className={styles.container}>
+      {setIsLoading(isLoadingMoviesNowOnCinema)}
+      {setIsLoading(isLoadingMoviesTopRated)}
+      {setIsLoading(mutatesearchByGenre.isLoading)}
+      {setIsLoading(mutateByName.isLoading)}
+      {setIsLoading(mutateByRatong.isLoading)}
       <div className={styles.buttonCluster}>
         <button onClick={handleSearchNowOnCinema}>Now on cinemas</button>
         <button onClick={handleSearchTopRated}>Top Rated</button>
@@ -121,7 +133,7 @@ function SearchBar() {
         <input type="text" value={searchName} onChange={handleSearchByName} />
       </div>
       <div className={styles.filter}>
-        <label style={{ marginRight: 5 }}>Min. Rating</label>
+        <label style={{ marginRight: 5 }}>Rating</label>
         <input
           type="range"
           name="rate"

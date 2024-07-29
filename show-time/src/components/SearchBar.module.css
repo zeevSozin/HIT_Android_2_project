@@ -3,24 +3,30 @@
   flex-direction: column;
   font-size: small;
   overflow: hidden;
-  background-color: var(--color-surface-mixed-400);
+  background-color: var(--color-surface-300);
 }
 
 .buttonCluster {
   display: flex;
-  flex-direction: row;
-  background-color: aqua;
+  flex-direction: column;
+  background-color: inherit;
   justify-content: space-between;
 }
-button {
-  /* margin: 1em; */
+.buttonCluster button {
+  margin: 1em;
+  align-self: flex-start;
 }
 
 .filter {
+  background-color: inherit;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 1em;
+}
+
+.filter label {
+  background-color: inherit;
 }
 
 .resultsContatiner {

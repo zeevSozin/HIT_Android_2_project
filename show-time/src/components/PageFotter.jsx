@@ -1,5 +1,9 @@
 function PageFotter() {
-  return <div>Fotter</div>;
+  return (
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      Developed by Zeev Suzin & Ofek Aton{" "}
+    </div>
+  );
 }
 
 export default PageFotter;

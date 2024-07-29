@@ -1,14 +1,14 @@
 .frame {
-  /* margin: 2.5rem;
-  padding: 2.5rem 5rem;
-  background-color: green;
-  min-height: calc(100vh - 5rem); */
-  /* align-items: center; */
-  justify-content: center;
+  /* justify-content: center; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 15px;
+  margin-top: 8em;
 }
 
 .form {
-  background-color: gray;
+  background-color: var(--color-surface-200);
   border-radius: 7px;
   padding: 2rem 3rem;
   /* width: 30rem; */
@@ -26,11 +26,26 @@
 
 button {
   display: flex;
-  /* background-color: aqua; */
-  /* justify-content: center; */
+  background-color: var(--color-secondary-100);
+  color: black;
+  font-weight: bold;
+  border-radius: 10px;
+  padding: 1em;
+  width: 10em;
+  align-self: center;
+
   justify-content: center;
+}
+
+button:hover {
+  cursor: pointer;
+  transform: scale(1.02);
 }
 .regiter {
   display: flex;
   align-content: space-between;
+}
+
+input {
+  border-radius: 10px;
 }

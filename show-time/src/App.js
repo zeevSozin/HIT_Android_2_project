@@ -21,6 +21,7 @@ export const InventoryMovieContext = createContext([]);
 export const ShownMovieContext = createContext([]);
 export const MovieInCartContext = createContext([]);
 export const CardModeContext = createContext("");
+export const LoadingContext = createContext();
 
 function App() {
   const [logedInUser, setLogedInUser] = useState({
@@ -35,6 +36,7 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [moviesInCart, setMoviesInCart] = useState([]);
   const [cardMode, setCardMode] = useState("sell");
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <>
@@ -60,9 +62,13 @@ function App() {
               >
                 <CardModeContext.Provider value={{ cardMode, setCardMode }}>
                   <ShownMovieContext.Provider value={{ movies, setMovies }}>
-                    <BrowserRouter>
-                      <AppLayout />
-                    </BrowserRouter>
+                    <LoadingContext.Provider
+                      value={{ isLoading, setIsLoading }}
+                    >
+                      <BrowserRouter>
+                        <AppLayout />
+                      </BrowserRouter>
+                    </LoadingContext.Provider>
                   </ShownMovieContext.Provider>
                 </CardModeContext.Provider>
               </MovieInCartContext.Provider>

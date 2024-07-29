@@ -5,10 +5,10 @@ import { MovieInCartContext } from "../../App";
 function HomeSideBarContent() {
   const { movisInCart } = useContext(MovieInCartContext);
   return (
-    <div>
-      <div>cart 🛒</div>
+    <div className={styles.container}>
+      <div className={styles.catHeader}>🛒 Your Cart </div>
       <div className={styles.movieList}>
-        list of movies in Carr
+        list of movies in Cart
         <ul>
           {movisInCart?.map((movie) => (
             <li>{movie.title}</li>

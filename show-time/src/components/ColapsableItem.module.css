@@ -1,7 +1,7 @@
 .container {
-  background-color: var(--color-surface-mixed-400);
+  background-color: var(--color-surface-300);
 }
 
 .container p {
-  background-color: var(--color-surface-mixed-400);
+  background-color: var(--color-surface-300);
 }

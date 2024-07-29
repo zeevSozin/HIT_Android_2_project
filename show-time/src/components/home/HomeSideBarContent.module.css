@@ -1,3 +1,20 @@
 .movieList li {
   list-style: none;
 }
+
+.container {
+  background-color: var(--color-surface-300);
+}
+
+.catHeader {
+  background-color: var(--color-surface-300);
+  font-size: larger;
+}
+
+.movieList {
+  background-color: var(--color-surface-300);
+}
+
+.movieList ul {
+  background-color: var(--color-surface-300);
+}

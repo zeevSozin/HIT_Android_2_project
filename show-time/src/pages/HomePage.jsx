@@ -3,14 +3,16 @@ import HomeSideBarContent from "../components/home/HomeSideBarContent";
 import ListContainer from "../components/ListContainer";
 import RetractableContainer from "../components/RetractableContainer";
 import styles from "./HomePage.module.css";
-import { CardModeContext, ShownMovieContext } from "../App";
+import { CardModeContext, LoadingContext, ShownMovieContext } from "../App";
 import { useQuery } from "@tanstack/react-query";
 import { getItems } from "../apis/Inventory";
 import MovieModalContent from "../components/MovieModalContent";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 function HomePage() {
   const { movies, setMovies } = useContext(ShownMovieContext);
   const { cardMode, setCardMode } = useContext(CardModeContext);
+  const { isLoading, setIsLoading } = useContext(LoadingContext);
   useEffect(() => {
     setCardMode("sell");
   }, []);
@@ -29,6 +31,7 @@ function HomePage() {
   });
   return (
     <div>
+      {setIsLoading(inventoryDataLoading)}
       <RetractableContainer
         sidebarContent={<HomeSideBarContent />}
         mainContent={<ListContainer data={movies} />}
