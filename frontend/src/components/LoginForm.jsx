@@ -5,6 +5,7 @@ import { UserContext } from "./../App";
 import { useNavigate } from "react-router-dom";
 import jwtDecode from "./../util/jwtDecoder";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 function LoginForm() {
   const [userEmail, setUserEmail] = useState("");
@@ -53,6 +54,7 @@ function LoginForm() {
   }
   return (
     <main className={styles.frame}>
+      <Toaster />
       <h1>Logint to account</h1>
       <form className={styles.form} onSubmit={handleOnSubmit}>
         <div className={styles.row}>
