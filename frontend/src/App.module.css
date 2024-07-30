@@ -1,0 +1,9 @@
+.toaster {
+  position: fixed;
+  left: 35%;
+  height: 10%;
+  width: 30%;
+  border-radius: 10px;
+  background-color: #333;
+  color: #fff;
+}

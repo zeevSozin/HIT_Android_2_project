@@ -5,12 +5,12 @@ import { UserContext } from "./../App";
 import { useNavigate } from "react-router-dom";
 import jwtDecode from "./../util/jwtDecoder";
 import axios from "axios";
-import toast, { Toaster } from "react-hot-toast";
+import { toast } from "react-toastify";
 
 function LoginForm() {
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { setLogedInUser } = useContext(UserContext);
+  const { logedInUser, setLogedInUser } = useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -28,33 +28,47 @@ function LoginForm() {
     e.preventDefault();
     try {
       const payload = { email: userEmail, password: password };
-      const response = await axios.post(
-        "http://localhost:5000/authentication/validate",
-        payload
-      );
-      if (response.status === 200) {
-        // TODO: make a call to backend to recive the user detailes or think how to decompose token
-        const [isTokenExpired, decodedToken] = jwtDecode(response.data.token);
-        console.log("decodec token:", decodedToken);
-        if (isTokenExpired) navigate("/login");
-        else {
-          setLogedInUser({
-            firstName: decodedToken.firstName,
-            lastName: decodedToken.lastNmae,
-            email: decodedToken.email,
-            role: decodedToken.role,
-          });
-          navigate("/");
+      const response = await toast.promise(
+        axios.post("http://localhost:5000/authentication/validate", payload),
+        {
+          pending: "Logging in ...",
+          success: {
+            render({ data }) {
+              console.log(data);
+              if (data.status === 200) {
+                const [isTokenExpired, decodedToken] = jwtDecode(
+                  data.data.token
+                );
+                console.log("decodec token:", decodedToken);
+                if (isTokenExpired) {
+                  navigate("/login");
+                  throw new Error("session expired");
+                } else {
+                  setLogedInUser({
+                    firstName: decodedToken.firstName,
+                    lastName: decodedToken.lastNmae,
+                    email: decodedToken.email,
+                    role: decodedToken.role,
+                  });
+                  navigate("/");
+                  return `Wellcome ${decodedToken.firstName}`;
+                }
+              }
+            },
+          },
+          error: {
+            render({ data }) {
+              return data.response.data.error;
+            },
+          },
         }
-      }
+      );
     } catch (error) {
       console.log(error);
-      alert(error.response ? error.response.data.error : error.message);
     }
   }
   return (
-    <main className={styles.frame}>
-      <Toaster />
+    <div className={styles.frame}>
       <h1>Logint to account</h1>
       <form className={styles.form} onSubmit={handleOnSubmit}>
         <div className={styles.row}>
@@ -72,6 +86,8 @@ function LoginForm() {
           <input
             type="password"
             id="password"
+            minLength={6}
+            required={true}
             value={password}
             onChange={handlePasswordChanged}
           />
@@ -82,7 +98,7 @@ function LoginForm() {
           <Link to="/register"> Register</Link>
         </div>
       </form>
-    </main>
+    </div>
   );
 }
 
