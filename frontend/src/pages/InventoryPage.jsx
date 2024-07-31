@@ -17,6 +17,7 @@ function InventoryPage() {
   const { searchMoviesResult, setSearchMoviesResult } =
     useContext(SearchMovieContext);
 
+  const { movies, setMovies } = useContext(ShownMovieContext);
   // const { isLoading, data, error } = useQuery({
   //   queryKey: ["movieNowOnCinemas"],
   //   queryFn: async () => {
@@ -38,8 +39,6 @@ function InventoryPage() {
   //     return movies;
   //   },
   // });
-
-  const { movies, setMovies } = useContext(ShownMovieContext);
 
   return (
     <div className={styles.page}>

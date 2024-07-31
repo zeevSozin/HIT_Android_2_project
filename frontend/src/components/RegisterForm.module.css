@@ -1,5 +1,11 @@
+.container {
+  margin-top: 10%;
+  border-radius: 10px;
+}
+
 .form {
-  background-color: aqua;
+  display: flex;
+  flex-direction: column;
   padding: 1.5em;
   border-radius: 7px;
   gap: 2em;
@@ -12,8 +18,6 @@
   gap: 2em;
 }
 .submit {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   margin-top: 0.8em;
+  justify-self: center;
 }

@@ -6,7 +6,7 @@ function Logo() {
     <Link to="/">
       <img
         className={styles.logo}
-        src="/showtime-logo-black-and-white.png"
+        src="/showtime-logo-l.png"
         alt="Show Time logo"
       />
     </Link>

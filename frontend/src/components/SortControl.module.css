@@ -1,0 +1,34 @@
+.container {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  padding-block: 0.5em;
+  padding-inline: 1em;
+  border-radius: 1em;
+  margin-bottom: 0.5em;
+  color: black;
+  background-color: var(--color-surface-600);
+}
+.title {
+  margin-right: 1em;
+  background-color: inherit;
+  color: inherit;
+}
+
+.container:hover {
+  cursor: pointer;
+  background-color: var(--color-primary-600);
+}
+.active {
+  background-color: var(--color-primary-300);
+}
+
+.icons {
+  background-color: inherit;
+  font-size: 1em;
+}
+.icons {
+  * {
+    color: black;
+  }
+}

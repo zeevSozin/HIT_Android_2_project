@@ -1,8 +1,7 @@
 .logo {
-  width: 6rem;
+  height: 4em;
   margin-left: 2em;
-  border-radius: 70%;
-  padding-inline: 2em;
+  border-radius: 1em;
 }
 .logo:hover {
   opacity: 0.33;

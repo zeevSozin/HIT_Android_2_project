@@ -12,6 +12,7 @@ import {
 import { getMoviesOnCinema } from "./../../apis/movieProvider";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getItems } from "./../../apis/Inventory";
+import InventoryStockSearchBar from "./InventoryStockSearchBar";
 
 function InventorySideBarContent() {
   const { movies, setMovies } = useContext(ShownMovieContext);
@@ -84,10 +85,7 @@ function InventorySideBarContent() {
           On stock
         </li>
         <ColapsableItem setVisible={isStockSelected}>
-          <p>books</p>
-          <p>folders</p>
-          <p>tests</p>
-          <p>ducks</p>
+          <InventoryStockSearchBar />
         </ColapsableItem>
       </ul>
     </div>

@@ -15,6 +15,7 @@ function OrderModalContent({ data }) {
   });
 
   function handlePlaceOrder(e) {
+    //TODO: Add toast with promiss and pass closing modal functionaluty
     orderMutation.mutate({
       ...data,
       avalibleAmount: amount,

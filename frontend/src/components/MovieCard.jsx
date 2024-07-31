@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import styles from "./MovieCard.module.css";
-import { CardModeContext } from "../App";
+import { CardModeContext, UserContext } from "../App";
 import MovieModalContent from "./MovieModalContent";
 import OrderModalContent from "./inventory/OrderModalContent";
 import BuyModalContent from "./home/BuyModalContent";
@@ -10,6 +10,7 @@ import StarRating from "./StarRating";
 
 function MovieCard({ data }) {
   const { cardMode, setCardMode } = useContext(CardModeContext);
+  const { logedInUser } = useContext(UserContext);
   const [isDetailsOpen, setIsDetailesOpen] = useState(false);
   const [isFunctionOpen, setIsFunctionOpen] = useState(false);
 
@@ -31,6 +32,13 @@ function MovieCard({ data }) {
       )}
       {cardMode === "edit" && (
         <div>
+          <div>
+            <strong style={{ marginRight: "1em" }}>
+              Avalible: {data.avalibleAmount ? data.avalibleAmount : 0}
+            </strong>
+
+            <strong>Sold: {data.soldAmount ? data.soldAmount : 0}</strong>
+          </div>
           <div>
             <strong>Order Price: ${data.price ? data.price : 0}</strong>
           </div>
@@ -77,7 +85,10 @@ function MovieCard({ data }) {
               isOpen={isFunctionOpen}
               onClose={() => setIsFunctionOpen(false)}
             >
-              <EditModalContent data={data} />
+              <EditModalContent
+                data={data}
+                onClose={() => setIsFunctionOpen(false)}
+              />
             </Modal>
           </>
         )}

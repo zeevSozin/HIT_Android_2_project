@@ -75,7 +75,7 @@ function RegisterForm() {
   }
 
   return (
-    <div>
+    <div className={styles.container}>
       <form className={styles.form} onSubmit={onSubmit}>
         <div className={styles.row}>
           <label>First name</label>
@@ -122,13 +122,12 @@ function RegisterForm() {
             onChange={onConfirmPasswordChanged}
           />
         </div>
-        <div className={styles.submit}>
-          <input
-            type="submit"
-            name="submit"
-            disabled={canSubmit ? "" : "disabled"}
-          />
-        </div>
+        <button
+          className={styles.submit}
+          disabled={canSubmit ? "" : "disabled"}
+        >
+          Submit
+        </button>
       </form>
     </div>
   );
