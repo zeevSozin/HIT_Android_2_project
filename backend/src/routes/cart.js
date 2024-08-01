@@ -61,9 +61,14 @@ router.post("/addItem", async (req, res) => {
 
     //if not exists caeate new cart with the item
     if (!cart.length) {
+      logger.debug(
+        "POST /cart/add array of item ids %s, %j",
+        typeof itemId,
+        itemId
+      );
       cart = await dbContext.saveOne(Cart, {
         userId: userId,
-        itemIds: [itemId],
+        itemIds: itemId,
       });
       logger.debug(" POST /cart/add - result after adding new cart %j", cart);
     } else {

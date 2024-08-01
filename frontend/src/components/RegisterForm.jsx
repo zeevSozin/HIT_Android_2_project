@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "./../App";
+import jwtDecode from "../util/jwtDecoder";
 
 function RegisterForm() {
   const { logedInUser, setLogedInUser } = useContext(UserContext);
@@ -60,13 +61,22 @@ function RegisterForm() {
       );
       console.log(resopnse);
       if (resopnse.status === 201) {
-        setLogedInUser({
-          firstName: firstName,
-          lastName: lastName,
-          email: email,
-          role: "user",
-        });
-        navigate("/");
+        const [isTokenExpired, decodedToken] = jwtDecode(resopnse.data.token);
+        console.log("decodec token:", decodedToken);
+        if (isTokenExpired) {
+          navigate("/login");
+          throw new Error("session expired");
+        } else {
+          setLogedInUser({
+            firstName: decodedToken.firstName,
+            lastName: decodedToken.lastNmae,
+            email: decodedToken.email,
+            role: decodedToken.role,
+            userId: decodedToken.userId,
+          });
+
+          navigate("/");
+        }
       }
     } catch (error) {
       console.log(error);

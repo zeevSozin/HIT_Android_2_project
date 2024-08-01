@@ -9,11 +9,38 @@ import {
   orderByRetailPrice,
   orderBySoldAmount,
 } from "../../util/InventoryFilter";
-import { ShownMovieContext } from "../../App";
+import { InventoryMovieContext, ShownMovieContext } from "../../App";
 
 function InventoryStockSearchBar() {
   const [sortdActiveArr, setSortActiveArr] = useState("000000");
   const { movies, setMovies } = useContext(ShownMovieContext);
+  const { inventoryMovies, setInventoryMovies } = useContext(
+    InventoryMovieContext
+  );
+  const [ratingFilter, setRatingFilter] = useState(10);
+  const [nameFilter, setNameFilter] = useState("");
+
+  function handleRatingFilter(e) {
+    const val = e.target.value;
+    setRatingFilter((cur) => (cur = val));
+    setMovies(
+      (cur) => (cur = inventoryMovies.filter((mov) => mov.vote_average < val))
+    );
+  }
+
+  function handleNameFilter(e) {
+    const val = e.target.value;
+    setNameFilter((cur) => (cur = val));
+    setMovies(
+      (cur) =>
+        (cur = val
+          ? inventoryMovies.filter((mov) =>
+              mov.original_title.toLowerCase().includes(val.toLowerCase())
+            )
+          : inventoryMovies)
+    );
+  }
+
   function handleSortAscName() {
     setSortActiveArr((cur) => (cur = "100000"));
     setMovies((cur) => [...orderByName(movies, true)]);
@@ -68,16 +95,36 @@ function InventoryStockSearchBar() {
         <h4>Filters</h4>
         <div className={styles.row}>
           <label htmlFor="name">Name:</label>
-          <input type="text" id="name" />
+          <input
+            type="text"
+            id="name"
+            value={nameFilter}
+            onChange={handleNameFilter}
+          />
         </div>
         <div className={styles.row}>
           <label htmlFor="rating">Rating:</label>
-          <input type="range" id="rating" min="0" max="10" />
+          <input
+            type="range"
+            id="rating"
+            min="0"
+            max="10"
+            value={ratingFilter}
+            onChange={handleRatingFilter}
+          />
+          {ratingFilter}
         </div>
-        <div className={styles.row}>
+        {/* <div className={styles.row}>
           <label htmlFor="amount">Avalible:</label>
-          <input type="range" id="amount" min="0" max="10" />
-        </div>
+          <input
+            type="range"
+            id="amount"
+            min="0"
+            max="10"
+            value={ratingFilter}
+            onChange={handleRatingFilter}
+          />
+        </div> */}
       </div>
       <div className={styles.sorters}>
         <h4>Sorting</h4>

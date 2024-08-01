@@ -49,6 +49,7 @@ function LoginForm() {
                     lastName: decodedToken.lastNmae,
                     email: decodedToken.email,
                     role: decodedToken.role,
+                    userId: decodedToken.userId,
                   });
                   navigate("/");
                   return `Wellcome ${decodedToken.firstName}`;

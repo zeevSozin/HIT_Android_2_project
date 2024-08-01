@@ -4,15 +4,16 @@ function StarRating({ rating }) {
     <>
       <div>
         <strong>Rating: {rating?.toFixed(1)}</strong>
-
-        <Rating
-          count={10}
-          value={rating?.toFixed(1)}
-          size={24}
-          activeColor="#ffd700"
-          edit={false}
-          isHalf={true}
-        />
+        <div style={{ zIndex: -1 }}>
+          <Rating
+            count={10}
+            value={rating?.toFixed(1)}
+            size={24}
+            activeColor="#ffd700"
+            edit={false}
+            isHalf={true}
+          />
+        </div>
       </div>
     </>
   );

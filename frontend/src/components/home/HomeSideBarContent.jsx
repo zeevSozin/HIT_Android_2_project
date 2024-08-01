@@ -1,23 +1,60 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import styles from "./HomeSideBarContent.module.css";
-import { MovieInCartContext } from "../../App";
+import {
+  MovieInCartContext,
+  PurchaseModalContext,
+  UserContext,
+} from "../../App";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { addToCart } from "../../apis/cart";
+import Modal from "../Modal";
+import PurchaseModalContent from "./PurchaseModalContent";
 
 function HomeSideBarContent() {
-  const { movisInCart } = useContext(MovieInCartContext);
+  const { moviesInCart, setMoviesInCart } = useContext(MovieInCartContext);
+  const { isPurchaseModalOpen, setIsPurchaseModalOpen } =
+    useContext(PurchaseModalContext);
+  const { logedInUser } = useContext(UserContext);
+  const navigateLogin = useNavigate();
+
+  function handleCheckOut(e) {
+    if (!logedInUser.email) {
+      navigateLogin("/login");
+    } else {
+      setIsPurchaseModalOpen((cur) => (cur = true));
+      const payload = {
+        userId: logedInUser.userId,
+        itemId: moviesInCart.map((mov) => mov._id),
+      };
+      toast.promise(addToCart(payload), {
+        pending: "Checking out...",
+        success: {
+          render() {
+            return "Cart Checked out";
+          },
+        },
+        error: "Failed to checkout",
+      });
+    }
+  }
   return (
     <div className={styles.container}>
       <div className={styles.catHeader}>🛒 Your Cart </div>
       <div className={styles.movieList}>
-        list of movies in Cart
         <ul>
-          {movisInCart?.map((movie) => (
-            <li>{movie.title}</li>
+          {moviesInCart?.map((movie) => (
+            <li key={movie.id}>
+              {movie.title}:<strong> ${movie.retailPrice}</strong>
+            </li>
           ))}
-          {/* <li>movie 1</li>
-          <li>movie 2</li>
-          <li>movie 3</li> */}
         </ul>
-        <button>Check out</button>
+        <div className={styles.subtotal}>
+          Subtotal: $
+          {moviesInCart.reduce((acc, cur) => acc + cur.retailPrice, 0)}
+        </div>
+
+        <button onClick={handleCheckOut}>Check out</button>
       </div>
     </div>
   );

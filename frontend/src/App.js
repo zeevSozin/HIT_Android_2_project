@@ -24,6 +24,7 @@ export const ShownMovieContext = createContext([]);
 export const MovieInCartContext = createContext([]);
 export const CardModeContext = createContext("");
 export const LoadingContext = createContext();
+export const PurchaseModalContext = createContext();
 
 function App() {
   const [logedInUser, setLogedInUser] = useState({
@@ -31,6 +32,7 @@ function App() {
     lastName: "",
     email: "",
     role: "",
+    userId: "",
   });
 
   const [searchMoviesResults, setSearchMoviesResults] = useState([]);
@@ -39,6 +41,7 @@ function App() {
   const [moviesInCart, setMoviesInCart] = useState([]);
   const [cardMode, setCardMode] = useState("sell");
   const [isLoading, setIsLoading] = useState(false);
+  const [isPurchaseModalOpen, setIsPurchaseModalOpen] = useState(false);
 
   return (
     <>
@@ -67,9 +70,13 @@ function App() {
                     <LoadingContext.Provider
                       value={{ isLoading, setIsLoading }}
                     >
-                      <BrowserRouter>
-                        <AppLayout />
-                      </BrowserRouter>
+                      <PurchaseModalContext.Provider
+                        value={{ isPurchaseModalOpen, setIsPurchaseModalOpen }}
+                      >
+                        <BrowserRouter>
+                          <AppLayout />
+                        </BrowserRouter>
+                      </PurchaseModalContext.Provider>
                     </LoadingContext.Provider>
                   </ShownMovieContext.Provider>
                 </CardModeContext.Provider>

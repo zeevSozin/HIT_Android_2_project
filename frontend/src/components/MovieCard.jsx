@@ -1,18 +1,28 @@
 import { useContext, useState } from "react";
 import styles from "./MovieCard.module.css";
-import { CardModeContext, UserContext } from "../App";
+import {
+  CardModeContext,
+  InventoryMovieContext,
+  MovieInCartContext,
+  UserContext,
+} from "../App";
 import MovieModalContent from "./MovieModalContent";
 import OrderModalContent from "./inventory/OrderModalContent";
-import BuyModalContent from "./home/BuyModalContent";
+import BuyModalContent from "./home/PurchaseModalContent";
 import EditModalContent from "./inventory/EditModalContent";
 import Modal from "./Modal";
 import StarRating from "./StarRating";
 
 function MovieCard({ data }) {
   const { cardMode, setCardMode } = useContext(CardModeContext);
+  const { moviesInCart, setMoviesInCart } = useContext(MovieInCartContext);
+  const { inventoryMovies, setInventoryMovies } = useContext(
+    InventoryMovieContext
+  );
   const { logedInUser } = useContext(UserContext);
   const [isDetailsOpen, setIsDetailesOpen] = useState(false);
   const [isFunctionOpen, setIsFunctionOpen] = useState(false);
+  const [isInCart, setIsInCart] = useState(data.isInCart);
 
   function handleShowDetaies(e) {
     setIsDetailesOpen((cur) => (cur = true));
@@ -20,6 +30,34 @@ function MovieCard({ data }) {
 
   function handleFuncButton(e) {
     setIsFunctionOpen((cur) => (cur = true));
+  }
+
+  function handleAddToCart(e) {
+    setMoviesInCart((cur) => [data, ...cur]);
+    data.isInCart = true;
+    // setInventoryMovies((movies) => {
+    //   movies.map((mov) => {
+    //     if (mov.id === data.id) {
+    //       mov.isInCart = true;
+    //     }
+    //     return mov;
+    //   });
+    // });
+
+    setIsInCart((cur) => !cur);
+  }
+  function handleRemoveFromCart(e) {
+    setMoviesInCart((cur) => cur.filter((mov) => mov.id !== data.id));
+    data.isInCart = false;
+    // setInventoryMovies((movies) => {
+    //   movies.map((mov) => {
+    //     if (mov.id === data.id) {
+    //       mov.isInCart = false;
+    //     }
+    //     return mov;
+    //   });
+    // });
+    setIsInCart((cur) => !cur);
   }
 
   return (
@@ -56,13 +94,16 @@ function MovieCard({ data }) {
         </Modal>
         {cardMode === "sell" && (
           <>
-            <button onClick={handleFuncButton}>Add to cart 🛒</button>
-            <Modal
-              isOpen={isFunctionOpen}
-              onClose={() => setIsFunctionOpen(false)}
-            >
-              <BuyModalContent data={data} />
-            </Modal>
+            {data.isInCart ? (
+              <button
+                onClick={handleRemoveFromCart}
+                style={{ background: "var(--color-secondary-400)" }}
+              >
+                Remove from cart 🗑️
+              </button>
+            ) : (
+              <button onClick={handleAddToCart}>Add to cart 🛒</button>
+            )}
           </>
         )}
 

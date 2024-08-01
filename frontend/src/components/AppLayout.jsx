@@ -8,6 +8,7 @@ import RegisterPage from "../pages/RegisterPage";
 import InventoryPage from "../pages/InventoryPage";
 import DashBoardPage from "../pages/DashBoardPage";
 import UsersPage from "../pages/UsersPage";
+import Modal from "./Modal";
 
 function AppLayout() {
   return (
@@ -24,6 +25,7 @@ function AppLayout() {
           <Route path="dashBoard" element={<DashBoardPage />} />
           <Route path="users" element={<UsersPage />} />
         </Routes>
+
         {/* {Children} */}
       </div>
       <div className={styles.fotter}>

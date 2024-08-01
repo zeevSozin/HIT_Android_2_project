@@ -96,13 +96,18 @@ router.post("/register", encrypt, async (req, res) => {
       email: req.body.email,
     });
     if (!result.length) {
-      await dbContext.saveOne(User, { ...req.body, role: "user" });
+      const addedUser = await dbContext.saveOne(User, {
+        ...req.body,
+        role: "user",
+      });
+      logger.debug("Added user:", typeof addedUser, addedUser);
       const user = req.body;
       const payload = {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
         role: "user",
+        userId: addedUser._id,
       };
       token = generateJWT(payload);
       res.status(201).json({ token: token });
@@ -162,6 +167,7 @@ router.post("/validate", async (req, res) => {
           lastName: user.lastName,
           email: user.email,
           role: user.role,
+          userId: user._id,
         };
         token = generateJWT(payload);
 
