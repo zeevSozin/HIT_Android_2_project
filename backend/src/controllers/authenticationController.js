@@ -5,7 +5,7 @@ const {
 } = require("./../helpers/encryptionMiddelware.js");
 const logger = require("./../util/logger.js");
 // const { saveOne } = require("./../helpers/dbContext.js");
-const DbContext = require("./../helpers/dbContext.js");
+const logger = require("./../util/logger.js");
 const User = require("./../model/user");
 
 const dbContext = new DbContext();

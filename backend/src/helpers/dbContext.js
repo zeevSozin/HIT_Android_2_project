@@ -69,7 +69,7 @@ class DbContext {
       const result = await model.findByIdAndUpdate({ _id: id }, data, {
         new: true,
       });
-      logger.debug(result);
+      logger.debug("updateById result: %j", result);
       return result;
     } catch (error) {
       logger.error(error.message);

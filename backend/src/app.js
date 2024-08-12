@@ -8,6 +8,7 @@ const authenticationRouter = require("./routes/authentication");
 const moviesProviderRouter = require("./routes/moviesProvider");
 const inventoryRouter = require("./routes/inventory");
 const cartRouter = require("./routes/cart");
+const userRouter = require("./routes/user");
 const morgan = require("morgan");
 const fs = require("fs");
 const path = require("path");
@@ -81,6 +82,7 @@ app.use(
 );
 
 app.use("/authentication", authenticationRouter);
+app.use("/user", userRouter);
 app.use("/moviesprovider", moviesProviderRouter);
 app.use("/inventory", inventoryRouter);
 app.use("/cart", cartRouter);
@@ -92,5 +94,4 @@ app.get("/", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port: ${PORT}`);
   logger.info("Server is running");
-  logger.debug("Server is running");
 });

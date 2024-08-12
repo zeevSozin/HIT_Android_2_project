@@ -7,7 +7,7 @@ import {
 } from "../../App";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { addToCart } from "../../apis/cart";
+import { addToCart, checkout } from "../../apis/cart";
 import Modal from "../Modal";
 import PurchaseModalContent from "./PurchaseModalContent";
 
@@ -25,9 +25,9 @@ function HomeSideBarContent() {
       setIsPurchaseModalOpen((cur) => (cur = true));
       const payload = {
         userId: logedInUser.userId,
-        itemId: moviesInCart.map((mov) => mov._id),
+        itemIds: moviesInCart.map((mov) => mov._id),
       };
-      toast.promise(addToCart(payload), {
+      toast.promise(checkout(payload), {
         pending: "Checking out...",
         success: {
           render() {

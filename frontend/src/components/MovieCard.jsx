@@ -92,6 +92,7 @@ function MovieCard({ data }) {
         <Modal isOpen={isDetailsOpen} onClose={() => setIsDetailesOpen(false)}>
           <MovieModalContent data={data} />
         </Modal>
+
         {cardMode === "sell" && (
           <>
             {data.isInCart ? (

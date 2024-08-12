@@ -1,0 +1,9 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10em;
+}
+.buttonCancel {
+  margin-bottom: 1em;
+  background-color: orange;
+}

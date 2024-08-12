@@ -1,7 +1,7 @@
 function PageFotter() {
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
-      Developed by Zeev Suzin & Ofek Aton{" "}
+      Developed by Zeev Suzin & Ofek Atun{" "}
     </div>
   );
 }

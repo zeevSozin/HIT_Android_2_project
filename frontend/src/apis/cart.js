@@ -28,3 +28,14 @@ export async function submitPurchse(userId) {
     throw new Error(error);
   }
 }
+export async function checkout(data) {
+  try {
+    console.log(" POST checkout data", data);
+    const response = await axiosCartProvider.post(`/cart/checkout`, data);
+    console.log("response data: ", response.data);
+    return response;
+  } catch (error) {
+    console.log(error);
+    throw new Error(error);
+  }
+}

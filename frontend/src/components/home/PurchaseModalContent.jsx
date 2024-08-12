@@ -28,12 +28,12 @@ function PurchaseModalContent({ data }) {
   }
 
   function handleConfirm(e) {
-    //TODO: toas with promiss do purchase
+    // toas with promiss do purchase
     toast.promise(submitPurchse(logedInUser.userId), {
       pending: "Confirming purchase",
       success: {
         render() {
-          //TODO: reset movies isInCart
+          // reset movies isInCart
           setMoviesInCart([]);
           setInventoryMovies((movies) =>
             movies.map((mov) => {
@@ -52,12 +52,7 @@ function PurchaseModalContent({ data }) {
               return mov;
             })
           );
-
-          // navigateHome("/login");
-          // navigateHome("/");
-
           setIsPurchaseModalOpen(false);
-
           return "Purchase Completed";
         },
       },

@@ -1,0 +1,53 @@
+.container {
+  border-radius: 20px;
+}
+
+.list {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.list li {
+  list-style: none;
+}
+
+.buttonEdit {
+  background-color: var(--color-primary-600);
+  width: fit-content;
+  padding: 0.7em;
+}
+.editIcon {
+  background-color: var(--color-primary-600);
+  font-size: 1.5em;
+  * {
+    color: black;
+  }
+}
+.saveIcon {
+  background-color: var(--color-primary-600);
+  font-size: 1.5em;
+  * {
+    color: black;
+  }
+}
+.reserPasswordIcon {
+  background-color: inherit;
+  font-size: 1.5em;
+}
+
+.deleteIcon {
+  background-color: red;
+  font-size: 1.5em;
+}
+
+.buttonDelete {
+  width: fit-content;
+  padding: 0.7em;
+  background-color: red;
+}
+
+.buttonReset {
+  width: fit-content;
+  padding: 0.7em;
+}

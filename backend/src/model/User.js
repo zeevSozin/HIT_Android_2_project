@@ -8,6 +8,7 @@ const userSchema = new Schema({
   email: String,
   password: String,
   role: String,
+  active_cartId: String,
 });
 
 const User = model("user", userSchema);
