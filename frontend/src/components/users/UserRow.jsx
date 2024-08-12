@@ -97,24 +97,24 @@ function UserRow({ data }) {
           </select>
         )}
         {!isEdited ? (
-          <Tooltip title="Edit user">
+          <Tooltip title="Edit user" delay={[800, 0]}>
             <button className={styles.buttonEdit} onClick={handleEdit}>
               <FaEdit className={styles.editIcon} />
             </button>
           </Tooltip>
         ) : (
-          <Tooltip title="Save user">
+          <Tooltip title="Save user" delay={[800, 0]}>
             <button className={styles.buttonEdit} onClick={handleSave}>
               <IoMdSave className={styles.saveIcon} />
             </button>
           </Tooltip>
         )}
-        <Tooltip title="Reset user's password">
+        <Tooltip title="Reset user's password" delay={[800, 0]}>
           <button className={styles.buttonReset} onClick={handleResetPassword}>
             <MdLockReset className={styles.reserPasswordIcon} />
           </button>
         </Tooltip>
-        <Tooltip title="Delete user">
+        <Tooltip title="Delete user" delay={[800, 0]}>
           <button className={styles.buttonDelete} onClick={handleDelete}>
             <MdDeleteForever className={styles.deleteIcon} />
           </button>

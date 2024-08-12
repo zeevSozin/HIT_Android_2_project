@@ -13,6 +13,7 @@ export const SelectedUserContext = createContext();
 export const ResetPasswordUserModalContext = createContext();
 export const DeleteUserModalContext = createContext();
 export const UsersContext = createContext([]);
+export const RefetchContext = createContext();
 
 function UsersPage() {
   const [users, setUsers] = useState([]);
@@ -27,21 +28,33 @@ function UsersPage() {
     isLoading: usersIsLoading,
     data,
     error,
+    refetch,
   } = useQuery({
     queryKey: ["users"],
     queryFn: getAllUsers,
   });
+  // const {
+  //   isLoading: usersIsLoading,
+  //   data,
+  //   error,
+  //   mutateAsync,
+  // } = useMutation({
+  //   mutationFn: getAllUsers,
+  // });
 
   // const mutation = useMutation({
   //   queryKey: ["users"],
   //   mutationFn: getAllUsers,
   // });
 
+  // async function fetchData() {
+  //   await mutateAsync();
+  //   setUsers((cur) => (cur = data));
+  // }
+
   useEffect(() => {
-    console.log("UseEffect invoked");
-    // mutation.mutate();
     setUsers((cur) => (cur = data));
-  }, [users, data]);
+  }, [data]);
 
   return (
     <div>
@@ -54,22 +67,28 @@ function UsersPage() {
               value={{ isDeleteUserModalOpen, setIsDeleteUserModalOpen }}
             >
               {setIsLoading(usersIsLoading)}
-              <RetractableContainer
-                sidebarContent={<UsersSideBarContent />}
-                mainContent={<UserListContainer data={users} />}
-              />
-              <Modal
-                isOpen={isResetPasswordModalOpen}
-                onClose={() => SetIsResetPasswordModalOpen(false)}
-              >
-                <ResetPasswordModalContent data={selectedUser} />
-              </Modal>
-              <Modal
-                isOpen={isDeleteUserModalOpen}
-                onClose={() => setIsDeleteUserModalOpen(false)}
-              >
-                <DeleteUserModalContent data={selectedUser} />
-              </Modal>
+              <RefetchContext.Provider value={{ refetch }}>
+                <RetractableContainer
+                  sidebarContent={<UsersSideBarContent />}
+                  mainContent={<UserListContainer data={users} />}
+                />
+                <Modal
+                  isOpen={isResetPasswordModalOpen}
+                  onClose={() => {
+                    SetIsResetPasswordModalOpen(false);
+                  }}
+                >
+                  <ResetPasswordModalContent data={selectedUser} />
+                </Modal>
+                <Modal
+                  isOpen={isDeleteUserModalOpen}
+                  onClose={() => {
+                    setIsDeleteUserModalOpen(false);
+                  }}
+                >
+                  <DeleteUserModalContent data={selectedUser} />
+                </Modal>
+              </RefetchContext.Provider>
             </DeleteUserModalContext.Provider>
           </ResetPasswordUserModalContext.Provider>
         </SelectedUserContext.Provider>

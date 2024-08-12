@@ -2,6 +2,7 @@ import styles from "./DeleteUserModalContent.module.css";
 import { useContext } from "react";
 import {
   DeleteUserModalContext,
+  RefetchContext,
   SelectedUserContext,
   UsersContext,
 } from "../../pages/UsersPage";
@@ -14,6 +15,7 @@ function DeleteUserModalContent() {
     DeleteUserModalContext
   );
   const { users, setUsers } = useContext(UsersContext);
+  const { refetch } = useContext(RefetchContext);
 
   function handleCancel(e) {
     setIsDeleteUserModalOpen(false);
@@ -25,7 +27,7 @@ function DeleteUserModalContent() {
       success: {
         render() {
           setIsDeleteUserModalOpen(false);
-          setUsers([]);
+          refetch();
           return "User Deleted";
         },
       },

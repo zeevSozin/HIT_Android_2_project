@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import {
+  RefetchContext,
   ResetPasswordUserModalContext,
   SelectedUserContext,
 } from "../../pages/UsersPage";
@@ -12,6 +13,7 @@ function ResetPasswordModalContent() {
   const { isResetPasswordModalOpen, SetIsResetPasswordModalOpen } = useContext(
     ResetPasswordUserModalContext
   );
+  const { refetch } = useContext(RefetchContext);
 
   const [isPasswordMatches, setIsPasswordMatches] = useState(false);
   const [password, setPassword] = useState("");
@@ -36,6 +38,7 @@ function ResetPasswordModalContent() {
       success: {
         render() {
           SetIsResetPasswordModalOpen(false);
+          refetch();
           return "Reset completed";
         },
       },
