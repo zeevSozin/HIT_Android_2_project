@@ -36,4 +36,6 @@
   /* color: var(--color-primary-600);
   background-color: var(--color-surface-300); */
   --toastify-color-dark: #282828;
+
+  --color-surface-mixed-test: #47ff37;
 }

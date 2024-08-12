@@ -22,7 +22,6 @@ function UsersPage() {
   const [isResetPasswordModalOpen, SetIsResetPasswordModalOpen] =
     useState(false);
   const [isDeleteUserModalOpen, setIsDeleteUserModalOpen] = useState(false);
-  //TODO: complete user refresh after deleting user
 
   const {
     isLoading: usersIsLoading,
@@ -33,25 +32,6 @@ function UsersPage() {
     queryKey: ["users"],
     queryFn: getAllUsers,
   });
-  // const {
-  //   isLoading: usersIsLoading,
-  //   data,
-  //   error,
-  //   mutateAsync,
-  // } = useMutation({
-  //   mutationFn: getAllUsers,
-  // });
-
-  // const mutation = useMutation({
-  //   queryKey: ["users"],
-  //   mutationFn: getAllUsers,
-  // });
-
-  // async function fetchData() {
-  //   await mutateAsync();
-  //   setUsers((cur) => (cur = data));
-  // }
-
   useEffect(() => {
     setUsers((cur) => (cur = data));
   }, [data]);
