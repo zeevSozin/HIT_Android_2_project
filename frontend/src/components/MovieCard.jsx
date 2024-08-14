@@ -87,7 +87,7 @@ function MovieCard({ data }) {
           </div>
         </div>
       )}
-      <div className={styles.bottomButtonConatiner}>
+      <div className={styles.bottomButtonContainer}>
         <button onClick={handleShowDetaies}>Detailes</button>
         <Modal isOpen={isDetailsOpen} onClose={() => setIsDetailesOpen(false)}>
           <MovieModalContent data={data} />

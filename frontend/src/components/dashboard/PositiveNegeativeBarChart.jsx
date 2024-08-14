@@ -33,9 +33,14 @@ const PositiveNegativeBarChart = ({ data, barA }) => {
           textAnchor="end"
           height={100}
           interval={0}
+          tick={{ fill: "#fff6af" }}
         />
         <YAxis />
-        <Tooltip />
+        <Tooltip
+          contentStyle={{ backgroundColor: "#121212;", color: "#000" }}
+          itemStyle={{ color: "#000" }}
+          cursor={{ fill: "#3f3f3f" }}
+        />
         <Legend />
         <ReferenceLine y={0} stroke="#000" />
         <Bar dataKey={barA.key} fill="#82ca9d" name={barA.name}>

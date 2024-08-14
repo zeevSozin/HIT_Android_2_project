@@ -31,9 +31,14 @@ const CustomBarChart = ({ data, barA, barB }) => {
           textAnchor="end"
           height={100}
           interval={0}
+          tick={{ fill: "#fff6af" }}
         />
         <YAxis />
-        <Tooltip />
+        <Tooltip
+          contentStyle={{ backgroundColor: "#121212;", color: "#000" }}
+          itemStyle={{ color: "#000" }}
+          cursor={{ fill: "#3f3f3f" }}
+        />
         <Legend />
         <Bar dataKey={barA.key} fill="#8884d8" name={barA.name} />
         <Bar dataKey={barB.key} fill="#82ca9d" name={barB.name} />

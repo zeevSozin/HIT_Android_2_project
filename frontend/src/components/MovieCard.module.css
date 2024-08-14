@@ -37,3 +37,9 @@
 .selected button {
   background-color: var(--color-secondary-100);
 }
+
+.bottomButtonContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
