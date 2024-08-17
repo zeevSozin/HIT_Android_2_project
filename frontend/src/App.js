@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import AppLayout from "./components/AppLayout";
-import { createContext, useState } from "react";
+import { createContext, useRef, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { toast, ToastContainer } from "react-toastify";
@@ -26,6 +26,7 @@ export const MovieInCartContext = createContext([]);
 export const CardModeContext = createContext("");
 export const LoadingContext = createContext();
 export const PurchaseModalContext = createContext();
+export const InventoryRefetchContxt = createContext();
 
 function App() {
   const [logedInUser, setLogedInUser] = useState({
@@ -43,6 +44,7 @@ function App() {
   const [cardMode, setCardMode] = useState("sell");
   const [isLoading, setIsLoading] = useState(false);
   const [isPurchaseModalOpen, setIsPurchaseModalOpen] = useState(false);
+  const inventoryRefetch = {};
 
   return (
     <>
@@ -63,25 +65,30 @@ function App() {
             <InventoryMovieContext.Provider
               value={{ inventoryMovies, setInventoryMovies }}
             >
-              <MovieInCartContext.Provider
-                value={{ moviesInCart, setMoviesInCart }}
-              >
-                <CardModeContext.Provider value={{ cardMode, setCardMode }}>
-                  <ShownMovieContext.Provider value={{ movies, setMovies }}>
-                    <LoadingContext.Provider
-                      value={{ isLoading, setIsLoading }}
-                    >
-                      <PurchaseModalContext.Provider
-                        value={{ isPurchaseModalOpen, setIsPurchaseModalOpen }}
+              <InventoryRefetchContxt.Provider value={{ inventoryRefetch }}>
+                <MovieInCartContext.Provider
+                  value={{ moviesInCart, setMoviesInCart }}
+                >
+                  <CardModeContext.Provider value={{ cardMode, setCardMode }}>
+                    <ShownMovieContext.Provider value={{ movies, setMovies }}>
+                      <LoadingContext.Provider
+                        value={{ isLoading, setIsLoading }}
                       >
-                        <BrowserRouter>
-                          <AppLayout />
-                        </BrowserRouter>
-                      </PurchaseModalContext.Provider>
-                    </LoadingContext.Provider>
-                  </ShownMovieContext.Provider>
-                </CardModeContext.Provider>
-              </MovieInCartContext.Provider>
+                        <PurchaseModalContext.Provider
+                          value={{
+                            isPurchaseModalOpen,
+                            setIsPurchaseModalOpen,
+                          }}
+                        >
+                          <BrowserRouter>
+                            <AppLayout />
+                          </BrowserRouter>
+                        </PurchaseModalContext.Provider>
+                      </LoadingContext.Provider>
+                    </ShownMovieContext.Provider>
+                  </CardModeContext.Provider>
+                </MovieInCartContext.Provider>
+              </InventoryRefetchContxt.Provider>
             </InventoryMovieContext.Provider>
           </SearchMovieContext.Provider>
         </UserContext.Provider>

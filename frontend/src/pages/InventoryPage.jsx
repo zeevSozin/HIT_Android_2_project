@@ -18,31 +18,9 @@ function InventoryPage() {
     useContext(SearchMovieContext);
 
   const { movies, setMovies } = useContext(ShownMovieContext);
-  // const { isLoading, data, error } = useQuery({
-  //   queryKey: ["movieNowOnCinemas"],
-  //   queryFn: async () => {
-  //     const movies = await getMoviesOnCinema();
-  //     setSearchMoviesResult(movies);
-  //     return movies;
-  //   },
-  // });
-
-  // const {
-  //   isLoading: inventoryDataLoading,
-  //   data: inventoryData,
-  //   error: incentoryError,
-  // } = useQuery({
-  //   queryKey: ["inventory"],
-  //   queryFn: async () => {
-  //     const movies = await getItems();
-  //     setMovies(movies);
-  //     return movies;
-  //   },
-  // });
 
   return (
     <div className={styles.page}>
-      {/* {console.log(typeof inventoryMovies, inventoryMovies)} */}
       <RetractableContainer
         sidebarContent={<InventorySideBarContent />}
         mainContent={<ListContainer data={movies} />}

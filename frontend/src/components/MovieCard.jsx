@@ -98,7 +98,10 @@ function MovieCard({ data }) {
               isOpen={isFunctionOpen}
               onClose={() => setIsFunctionOpen(false)}
             >
-              <OrderModalContent data={data} />
+              <OrderModalContent
+                data={data}
+                onClose={() => setIsFunctionOpen(false)}
+              />
             </Modal>
           </>
         )}

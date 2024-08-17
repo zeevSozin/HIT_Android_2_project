@@ -1,7 +1,7 @@
 import styles from "./DashBoardPage.module.css";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import CustomBarChart from "../components/dashboard/CustomBarChart";
-import { InventoryMovieContext } from "../App";
+import { InventoryMovieContext, InventoryRefetchContxt } from "../App";
 import PositiveNegativeBarChart from "../components/dashboard/PositiveNegeativeBarChart";
 import BalancePieChart from "../components/dashboard/BalancePieChart";
 
@@ -9,6 +9,12 @@ function DashBoardPage() {
   const { inventoryMovies, setInventoryMovies } = useContext(
     InventoryMovieContext
   );
+  const { inventoryRefetch } = useContext(InventoryRefetchContxt);
+
+  useEffect(() => {
+    console.log(inventoryRefetch);
+    inventoryRefetch.fn();
+  }, []);
 
   function movieIncomeData(data) {
     const result = data.map((mov) => {

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import HomeSideBarContent from "../components/home/HomeSideBarContent";
 import ListContainer from "../components/ListContainer";
 import RetractableContainer from "../components/RetractableContainer";
@@ -6,6 +6,8 @@ import styles from "./HomePage.module.css";
 import {
   CardModeContext,
   InventoryMovieContext,
+  InventoryRefetchContext,
+  InventoryRefetchContxt,
   LoadingContext,
   MovieInCartContext,
   PurchaseModalContext,
@@ -32,31 +34,13 @@ function HomePage() {
   const { isLoading, setIsLoading } = useContext(LoadingContext);
   const { isPurchaseModalOpen, setIsPurchaseModalOpen } =
     useContext(PurchaseModalContext);
-
-  useEffect(() => {
-    setCardMode("sell");
-    console.log("inventory movies:", inventoryMovies);
-    setMovies((movies) => (movies = [...inventoryMovies]));
-    console.log("Home Page rerenders");
-
-    // moviesInCart.length &&
-    //   setMovies(
-    //     (cur) =>
-    //       (cur = inventoryMovies.map((mov) => {
-    //         moviesInCart.filter((m) => m.id === mov.id)[0]
-    //           ? (mov.isInCart = true)
-    //           : (mov.isInCart = false);
-    //         console.log("mov is ", mov);
-    //         return mov;
-    //       }))
-    //   );
-    // console.log("movies after use effect", movies);
-  }, [inventoryMovies]);
+  const { inventoryRefetch } = useContext(InventoryRefetchContxt);
 
   const {
     isLoading: inventoryDataLoading,
     data: inventoryData,
     error: incentoryError,
+    refetch,
   } = useQuery({
     queryKey: ["inventory"],
     queryFn: async () => {
@@ -66,6 +50,16 @@ function HomePage() {
       return movies;
     },
   });
+
+  useEffect(() => {
+    setCardMode("sell");
+    console.log("inventory movies:", inventoryMovies);
+    setMovies((movies) => (movies = [...inventoryMovies]));
+    console.log("Home Page rerenders");
+  }, [inventoryMovies]);
+
+  inventoryRefetch.fn = refetch;
+
   return (
     <div>
       {console.log("shown movies:", movies)}

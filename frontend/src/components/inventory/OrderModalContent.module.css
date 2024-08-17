@@ -9,12 +9,17 @@
 .content {
   display: flex;
   justify-content: space-around;
+  margin-left: 1em;
+}
+.movieDetailes {
+  margin-inline: 1em;
 }
 
 .orderContent {
   display: flex;
   margin: 1em;
   justify-content: space-around;
+  align-items: center;
 }
 
 .trailer {

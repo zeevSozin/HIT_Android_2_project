@@ -3,7 +3,7 @@ import styles from "./EditModalContent.module.css";
 import { toast } from "react-toastify";
 import { deleteItem, getItems, updateItem } from "../../apis/Inventory";
 import { useMutation } from "@tanstack/react-query";
-import { ShownMovieContext } from "../../App";
+import { InventoryMovieContext, ShownMovieContext } from "../../App";
 
 function EditModalContent({ data, onClose }) {
   console.log("edit data", data);
@@ -12,12 +12,16 @@ function EditModalContent({ data, onClose }) {
   const [avalibleAmount, setAvalibleAmount] = useState(data.avalibleAmount);
   const [isActive, setIsActive] = useState(data.isActive);
   const { movies, setMovies } = useContext(ShownMovieContext);
+  const { inventoryMovies, setInventoryMovies } = useContext(
+    InventoryMovieContext
+  );
 
   const inventoryMutation = useMutation({
     queryKey: ["inventory"],
     mutationFn: async () => {
       const data = await getItems();
       setMovies(data);
+      setInventoryMovies(data);
       return data;
     },
   });

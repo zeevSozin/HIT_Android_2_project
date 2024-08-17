@@ -3,8 +3,9 @@ import styles from "./OrderModalContent.module.css";
 import Rating from "react-rating-stars-component";
 import { useMutation } from "@tanstack/react-query";
 import { addItem } from "./../../apis/Inventory";
+import { toast } from "react-toastify";
 
-function OrderModalContent({ data }) {
+function OrderModalContent({ data, onClose }) {
   const [price, setPrice] = useState(0);
   const [retailPrice, setRetailPrice] = useState(0);
   const [amount, setAmount] = useState(1);
@@ -15,14 +16,27 @@ function OrderModalContent({ data }) {
   });
 
   function handlePlaceOrder(e) {
-    //TODO: Add toast with promiss and pass closing modal functionaluty
-    orderMutation.mutate({
-      ...data,
-      avalibleAmount: amount,
-      soldAmount: 0,
-      price: price,
-      retailPrice: retailPrice,
-    });
+    toast.promise(
+      async () => {
+        await orderMutation.mutate({
+          ...data,
+          avalibleAmount: amount,
+          soldAmount: 0,
+          price: price,
+          retailPrice: retailPrice,
+        });
+      },
+      {
+        pending: "Placing order...",
+        success: {
+          render() {
+            onClose();
+            return "Order placed";
+          },
+        },
+        error: "Something went wrong",
+      }
+    );
   }
 
   function handleSetPrice(e) {
@@ -54,9 +68,6 @@ function OrderModalContent({ data }) {
           <p>
             <strong>Release Date: </strong>
             {data.release_date}
-          </p>
-          <p>
-            <strong>Runtime:</strong> {data.runtime} minutes
           </p>
           <p>
             <strong>Rating: {data.vote_average.toFixed(1)}</strong>

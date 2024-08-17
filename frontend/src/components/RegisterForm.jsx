@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "./../App";
 import jwtDecode from "../util/jwtDecoder";
+import { toast } from "react-toastify";
 
 function RegisterForm() {
   const { logedInUser, setLogedInUser } = useContext(UserContext);
@@ -45,43 +46,59 @@ function RegisterForm() {
     }
   }
 
-  async function onSubmit(e) {
-    // console.log(response, error, loading);
-    e.preventDefault();
-    try {
-      const payload = {
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        password: password,
-      };
-      const resopnse = await axios.post(
-        "http://localhost:5000/authentication/register",
-        payload
-      );
-      console.log(resopnse);
-      if (resopnse.status === 201) {
-        const [isTokenExpired, decodedToken] = jwtDecode(resopnse.data.token);
-        console.log("decodec token:", decodedToken);
-        if (isTokenExpired) {
-          navigate("/login");
-          throw new Error("session expired");
-        } else {
-          setLogedInUser({
-            firstName: decodedToken.firstName,
-            lastName: decodedToken.lastNmae,
-            email: decodedToken.email,
-            role: decodedToken.role,
-            userId: decodedToken.userId,
-          });
+  function resetFields() {
+    setFirstName("");
+    setlastName("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+  }
 
-          navigate("/");
-        }
+  async function registrUser() {
+    const payload = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      password: password,
+    };
+    const resopnse = await axios.post(
+      "http://localhost:5000/authentication/register",
+      payload
+    );
+    console.log(resopnse);
+    if (resopnse.status === 201) {
+      const [isTokenExpired, decodedToken] = jwtDecode(resopnse.data.token);
+      console.log("decodec token:", decodedToken);
+      if (isTokenExpired) {
+        navigate("/login");
+        throw new Error("session expired");
+      } else {
+        setLogedInUser({
+          firstName: decodedToken.firstName,
+          lastName: decodedToken.lastNmae,
+          email: decodedToken.email,
+          role: decodedToken.role,
+          userId: decodedToken.userId,
+        });
+
+        navigate("/");
       }
-    } catch (error) {
-      console.log(error);
-      alert(error.response ? error.response.data.error : error.message);
     }
+  }
+
+  async function onSubmit(e) {
+    e.preventDefault();
+    toast.promise(registrUser(), {
+      pending: "Registering ....",
+      success: `Wellcome ${firstName}`,
+      error: {
+        render(error) {
+          console.log(error);
+          resetFields();
+          return error.data.response.data.error;
+        },
+      },
+    });
   }
 
   return (
