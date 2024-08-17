@@ -1,10 +1,12 @@
+import { PiSelectionBackground } from "react-icons/pi";
+import styles from "./BalancePieChart.module.css";
 import { PieChart, Pie, Cell } from "recharts";
 
 function BalancePieChart({ balance }) {
   const { income, expenses } = balance;
   const data = [
-    { name: "Incomes", value: income },
-    { name: "Expenses", value: expenses },
+    { name: "Income", value: income },
+    { name: "Expense", value: expenses },
   ];
   const colors = ["#47ff37", "#ff3b72"];
 
@@ -30,6 +32,7 @@ function BalancePieChart({ balance }) {
         fill={colors[index]}
         textAnchor={x > cx ? "start" : "end"}
         dominantBaseline="central"
+        fontSize={"large"}
       >
         {`${data[index].name}: ${data[index].value}`}
       </text>
@@ -37,7 +40,7 @@ function BalancePieChart({ balance }) {
   };
 
   return (
-    <PieChart width={800} height={600}>
+    <PieChart width={800} height={600} className={styles.chart}>
       <Pie
         dataKey="value"
         startAngle={180}

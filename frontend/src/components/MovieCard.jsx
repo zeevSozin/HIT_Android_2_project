@@ -35,28 +35,11 @@ function MovieCard({ data }) {
   function handleAddToCart(e) {
     setMoviesInCart((cur) => [data, ...cur]);
     data.isInCart = true;
-    // setInventoryMovies((movies) => {
-    //   movies.map((mov) => {
-    //     if (mov.id === data.id) {
-    //       mov.isInCart = true;
-    //     }
-    //     return mov;
-    //   });
-    // });
-
     setIsInCart((cur) => !cur);
   }
   function handleRemoveFromCart(e) {
     setMoviesInCart((cur) => cur.filter((mov) => mov.id !== data.id));
     data.isInCart = false;
-    // setInventoryMovies((movies) => {
-    //   movies.map((mov) => {
-    //     if (mov.id === data.id) {
-    //       mov.isInCart = false;
-    //     }
-    //     return mov;
-    //   });
-    // });
     setIsInCart((cur) => !cur);
   }
 

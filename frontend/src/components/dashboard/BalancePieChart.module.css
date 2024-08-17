@@ -1,0 +1,5 @@
+.chart {
+  * {
+    background-color: var(--color-surface-300);
+  }
+}

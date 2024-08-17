@@ -12,7 +12,11 @@ import {
 
 const CustomBarChart = ({ data, barA, barB }) => {
   return (
-    <ResponsiveContainer width="100%" height={400}>
+    <ResponsiveContainer
+      width="95%"
+      height={400}
+      style={{ marginBottom: "2em" }}
+    >
       <BarChart
         width={600}
         height={300}

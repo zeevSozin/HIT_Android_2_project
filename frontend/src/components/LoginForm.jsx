@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 function LoginForm() {
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [disabled, setDisabled] = useState(true);
   const { logedInUser, setLogedInUser } = useContext(UserContext);
 
   const navigate = useNavigate();
@@ -22,6 +23,10 @@ function LoginForm() {
   function handlePasswordChanged(e) {
     let value = e.target.value;
     setPassword((password) => (password = value));
+    if (value === "") setDisabled(true);
+    else {
+      setDisabled(false);
+    }
   }
 
   async function handleOnSubmit(e) {
@@ -93,10 +98,13 @@ function LoginForm() {
             onChange={handlePasswordChanged}
           />
         </div>
-        <button>Login</button>
-        <div className={styles.regiter}>
-          Dont have an account?
-          <Link to="/register"> Register</Link>
+        <button disabled={disabled}>Login</button>
+        <div className={styles.register}>
+          Don't have an account?
+          <Link to="/register" className={styles.registerLink}>
+            {" "}
+            Register
+          </Link>
         </div>
       </form>
     </div>

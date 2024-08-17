@@ -18,7 +18,7 @@
 }
 
 .sideBar.open {
-  width: 30%;
+  width: 25%;
 }
 .contentContainer {
   background-color: var(--color-surface-100);

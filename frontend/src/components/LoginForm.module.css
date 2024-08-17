@@ -36,16 +36,34 @@ button {
 
   justify-content: center;
 }
+button:disabled {
+  background-color: gray;
+}
+button:disabled:hover {
+  cursor: not-allowed;
+  transform: none;
+}
 
 button:hover {
   cursor: pointer;
   transform: scale(1.02);
 }
-.regiter {
+.register {
   display: flex;
-  align-content: space-between;
+  /* justify-content: space-between; */
+  align-items: center;
 }
-
+.registerLink {
+  text-decoration: none;
+  margin-left: 1em;
+  background-color: var(--color-primary-200);
+  color: black;
+  padding: 0.3em;
+  border-radius: 10px;
+}
+.registerLink:hover {
+  transform: scale(1.02);
+}
 input {
   border-radius: 10px;
 }

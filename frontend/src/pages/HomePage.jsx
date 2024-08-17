@@ -72,6 +72,7 @@ function HomePage() {
       {setIsLoading(inventoryDataLoading)}
       <RetractableContainer
         sidebarContent={<HomeSideBarContent />}
+        iconType={"cart"}
         mainContent={<ListContainer data={movies} />}
       />
       <Modal

@@ -1,0 +1,21 @@
+.container {
+  background-color: var(--color-surface-300);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 1em;
+}
+.container h3 {
+  background-color: inherit;
+}
+
+.row {
+  display: flex;
+  background-color: inherit;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+.row label {
+  background-color: inherit;
+}

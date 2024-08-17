@@ -20,9 +20,6 @@ function MovieModalContent({ data }) {
             {data.release_date}
           </p>
           <p>
-            <strong>Runtime:</strong> {data.runtime} minutes
-          </p>
-          <p>
             <strong>Rating: {data.vote_average.toFixed(1)}</strong>
           </p>
           <Rating
