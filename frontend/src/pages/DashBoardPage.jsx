@@ -13,7 +13,7 @@ function DashBoardPage() {
 
   useEffect(() => {
     console.log(inventoryRefetch);
-    inventoryRefetch.fn();
+    // inventoryRefetch.fn();
   }, []);
 
   function movieIncomeData(data) {
