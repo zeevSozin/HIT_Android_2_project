@@ -17,7 +17,6 @@ const {
 const router = express.Router();
 
 const dbContext = new DbContext();
-//TODO: cleanup
 
 /**
  * @swagger
@@ -83,47 +82,6 @@ router.post("/addItem", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
-
-// router.post("/addItem", async (req, res) => {
-//   try {
-//     logger.debug(" POST /cart/add request body: %j", req.body);
-//     const { userId, itemId } = req.body;
-//     // check if cart is exists in db
-//     let cart = await dbContext.select(Cart, { userId: userId });
-//     logger.debug(
-//       " POST /cart/add - result after checking if cart exists %j",
-//       cart
-//     );
-
-//     //if not exists craeate new cart with the item
-//     if (!cart.length) {
-//       logger.debug(
-//         "POST /cart/add array of item ids %s, %j",
-//         typeof itemId,
-//         itemId
-//       );
-//       cart = await dbContext.saveOne(Cart, {
-//         userId: userId,
-//         itemIds: itemId,
-//       });
-//       logger.debug(" POST /cart/add - result after adding new cart %j", cart);
-//     } else {
-//       cart = await dbContext.updateById(Cart, cart[0]._id, {
-//         // itemIds: [...cart[0].itemIds, itemId],
-//         $push: { itemIds: itemId },
-//       });
-//       logger.debug(
-//         " POST /cart/add - result after appending item to cart %j",
-//         cart
-//       );
-//     }
-
-//     res.status(201).json(cart);
-//   } catch (error) {
-//     logger.error(error.message);
-//     res.status(500).json({ error: "Internal server error" });
-//   }
-// });
 
 /**
  * @swagger
@@ -199,53 +157,6 @@ router.post("/checkout", async (req, res) => {
  *                  type: string
  *                  exapmle: xyz...xzy
  */
-
-// router.get("/submit/:userId", async (req, res) => {
-//   try {
-//     const userId = req.params.userId;
-//     logger.debug(" GET /submit/:userId request params: %s,%s", userId);
-//     // check if cart exists
-//     const cart = await dbContext.select(Cart, { userId: userId });
-//     logger.debug(
-//       " GET /submit/:userId - result after checking if cart exists %j",
-//       cart
-//     );
-//     // if not return exception
-//     if (!cart.length) {
-//       res.status(406).json({ message: "Cart is no exsists" });
-//     }
-//     // if carty exists - process sumition: save to porchuse history
-//     else {
-//       const data = {
-//         userId: cart[0].userId,
-//         itemIds: cart[0].itemIds,
-//         date: new Date(),
-//       };
-//       const purchase = await dbContext.saveOne(Purchase, data);
-//       logger.debug(
-//         " GET /submit/:userId - result after inserting purchase  %j",
-//         purchase
-//       );
-//       //update amounts
-//       await updateItemAmounts(data.itemIds);
-
-//       const history = await dbContext.updateOneAndUpsert(
-//         UserHistory,
-//         { userId: userId },
-//         { $push: { purchaseIds: purchase._id } }
-//       );
-//       logger.debug(
-//         " GET /submit/:userId - result after adding purchase to history %j",
-//         history
-//       );
-
-//       res.status(200).json(purchase);
-//     }
-//   } catch (error) {
-//     logger.error(error.message);
-//     res.status(500).json({ error: "Internal server error" });
-//   }
-// });
 
 router.get("/submit/:userId", async (req, res) => {
   try {

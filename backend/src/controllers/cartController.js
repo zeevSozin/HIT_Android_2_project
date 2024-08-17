@@ -89,8 +89,6 @@ const cartCheckOut = async (userId, movieIds) => {
   }
 };
 
-//TODO: Buid a function to return cart by cartId
-
 const updateItemAmounts = async (movieIds) => {
   try {
     logger.debug(
@@ -110,8 +108,6 @@ const updateItemAmounts = async (movieIds) => {
     throw error;
   }
 };
-
-//TODO: Create an new cart and append to the user an active cart id, then append items
 
 const createCartForUser = async (userId, movieIds) => {
   try {
